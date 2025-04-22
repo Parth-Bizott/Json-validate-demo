@@ -1,0 +1,167 @@
+{
+  "id": "New Customer Form",
+  "title": "Customer Addition",
+  "description": "Use this form to onboard a new customer into the ERP system.",
+  "steps": [
+    {
+      "id": "companyInfo",
+      "title": "Company Information",
+      "description": "Basic identification and contact details.",
+      "order": 1
+    },
+    {
+      "id": "primaryAddressInfo",
+      "title": "Primary Address Info",
+      "description": "Residential address details.",
+      "order": 2
+    },
+    {
+      "id": "bankDetailsInfo",
+      "title": "Bank Details",
+      "description": "Bank account, tax ID, and payment-related info.",
+      "order": 3
+    },
+    {
+      "id": "otherStatutoryDetailsInfo",
+      "title": "Other Statutory Details",
+      "description": "Provide Info about TDS.",
+      "order": 4
+    },
+    {
+      "id": "creditCommissionAndPricelistInfo",
+      "title": "Credit Commission & Pricelist",
+      "description": "Provide credit commission & pricelist details",
+      "order": 5
+    }
+  ],
+  "sections": [
+    {
+      "id": "companyInfoSection",
+      "title": "Company Information",
+      "description": "Name, contact, and identification.",
+      "order": 1,
+      "stepId": "companyInfo",
+      "fields": [
+        { "id": "companyImg", "type": "file", "label": "Company Picture", "validation": { "required": false } },
+        { "id": "gstRegistrationType", "type": "text", "label": "GST Registration Type", "validation": { "required": false } },
+        { "id": "gstNumber", "type": "text", "label": "GST Number", "validation": { "required": true } },
+        { "id": "panNumber", "type": "text", "label": "PAN Number", "validation": { "required": true } },
+        { "id": "msmeNumber", "type": "text", "label": "MSME Number", "validation": { "required": false } },
+        { "id": "nickName", "type": "text", "label": "Nick Name", "validation": { "required": true } },
+        { "id": "parentGroup", "type": "select", "label": "Parent Group", "options": [ { "value": "ABC Group", "label": "ABC Group" } ], "validation": { "required": true } },
+        { "id": "websiteURL", "type": "text", "label": "Website URL", "validation": { "required": false } },
+        { "id": "businessNature", "type": "text", "label": "Business Nature", "validation": { "required": true } },
+        { "id": "businessDescription", "type": "text", "label": "Business Description", "validation": { "required": false } }
+      ]
+    },
+    {
+      "id": "contactInfoSection",
+      "title": "Contact Information",
+      "description": "Contact Info details.",
+      "order": 2,
+      "stepId": "companyInfo",
+      "fields": [
+        { "id": "contactPersonName", "type": "text", "label": "Contact Person Name", "validation": { "required": true } },
+        { "id": "contactNumber", "type": "number", "label": "Contact Number", "validation": { "required": true } },
+        { "id": "emailAddress", "type": "email", "label": "Email Address", "validation": { "required": true } },
+        { "id": "department", "type": "text", "label": "Department", "validation": { "required": false } }
+      ]
+    },
+    {
+      "id": "primaryAddressInfoSection",
+      "title": "Address",
+      "description": "Primary Address info.",
+      "order": 1,
+      "stepId": "primaryAddressInfo",
+      "fields": [
+        { "id": "addressName", "type": "text", "label": "Address Name", "validation": { "required": true } },
+        {
+          "id": "country",
+          "type": "select",
+          "label": "Country",
+          "options": [],
+          "dynamicOptions": {
+            "url": "https://restcountries.com/v3.1/all",
+            "method": "GET",
+            "valueKey": "cca2",
+            "labelKey": "name.common"
+          },
+          "validation": { "required": true }
+        },
+        {
+          "id": "state",
+          "type": "select",
+          "label": "State",
+          "options": [],
+          "dependsOn": "country",
+          "dynamicOptions": {
+            "url": "https://example.com/api/states?country={{country}}",
+            "method": "GET",
+            "valueKey": "code",
+            "labelKey": "name"
+          },
+          "validation": { "required": true }
+        },
+        {
+          "id": "city",
+          "type": "select",
+          "label": "City",
+          "options": [],
+          "dependsOn": "state",
+          "dynamicOptions": {
+            "url": "https://example.com/api/cities?state={{state}}",
+            "method": "GET",
+            "valueKey": "id",
+            "labelKey": "name"
+          },
+          "validation": { "required": true }
+        },
+        { "id": "postalCode", "type": "text", "label": "Postal/Zip Code", "validation": { "required": true } },
+        { "id": "registeredAddress", "type": "textarea", "label": "Registered Address", "validation": { "required": true } }
+      ]
+    },
+    {
+      "id": "bankDetailsInfoSection",
+      "title": "Bank Details",
+      "description": "Information for payroll processing.",
+      "order": 1,
+      "stepId": "bankDetailsInfo",
+      "fields": [
+        { "id": "bankName", "type": "text", "label": "Bank Name", "validation": { "required": true } },
+        { "id": "accountNumber", "type": "text", "label": "Account Number", "validation": { "required": true } },
+        { "id": "ifscSwift", "type": "text", "label": "IFSC Code", "validation": { "required": true } },
+        { "id": "micrNumber", "type": "text", "label": "MICR Number", "validation": { "required": true } }
+      ]
+    },
+    {
+      "id": "otherStatutoryDetailsSectionInfo",
+      "title": "Other Statutory Details",
+      "description": "Other statutory details",
+      "order": 2,
+      "stepId": "otherStatutoryDetailsInfo",
+      "fields": [
+        { "id": "tdsApplicable", "type": "radio", "label": "TDS Applicable", "options": [ { "value": "yes", "label": "Yes" }, { "value": "no", "label": "No" } ], "validation": { "required": true } },
+        { "id": "ignoreTdsExemptionLimitForTdsDeduction", "type": "radio", "label": "Ignore TDS Exemption Limit for TDS Deduction", "options": [ { "value": "yes", "label": "Yes" }, { "value": "no", "label": "No" } ], "validation": { "required": true } },
+        { "id": "tdsDeducteeType", "type": "select", "label": "TDS Deductee Type", "options": [ { "value": "company", "label": "Company" } ], "validation": { "required": true } },
+        { "id": "tanNumber", "type": "text", "label": "TAN Number", "validation": { "required": true } },
+        { "id": "iecNumber", "type": "text", "label": "IEC Number", "validation": { "required": false } }
+      ]
+    },
+    {
+      "id": "creditCommissionAndPricelistInfoSection",
+      "title": "Credit Commission & Price List",
+      "description": "Credit Commission & Price List details",
+      "order": 1,
+      "stepId": "creditCommissionAndPricelistInfo",
+      "fields": [
+        { "id": "creditLimit", "type": "number", "label": "Credit Limit", "validation": { "required": false } },
+        { "id": "creditDays", "type": "number", "label": "Credit Days", "validation": { "required": false } },
+        { "id": "brokerName", "type": "select", "label": "Agent/Broker Name", "options": [ { "value": "anil sharma", "label": "Anil Sharma" } ], "validation": { "required": false } },
+        { "id": "commissionType", "type": "select", "label": "Commission Type", "options": [ { "value": "percentage", "label": "Percentage" } ], "validation": { "required": false } },
+        { "id": "commissionPercentage", "type": "number", "label": "Commission Percentage/Commission per Quality", "validation": { "required": false } },
+        { "id": "defaultCurrency", "type": "select", "label": "Default Currency", "options": [ { "value": "INR", "label": "INR" } ], "validation": { "required": false } },
+        { "id": "priceList", "type": "select", "label": "Price List", "options": [ { "value": "Standard Price List", "label": "Standard Price List" } ], "validation": { "required": false } }
+      ]
+    }
+  ]
+}

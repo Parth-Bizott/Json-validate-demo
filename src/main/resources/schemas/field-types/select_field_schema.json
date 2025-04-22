@@ -1,0 +1,434 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Select Field Schema",
+  "type": "object",
+  "required": ["id", "name", "label", "type"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the select field"
+    },
+    "name": {
+      "type": "string",
+      "description": "Form field name"
+    },
+    "label": {
+      "type": "string",
+      "description": "Display label for the field"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["SELECT"],
+      "description": "Field type identifier"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the field"
+    },
+    "hidden": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the field is hidden"
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the field is disabled"
+    },
+    "placeholder": {
+      "type": "string",
+      "description": "Placeholder text when no value is selected"
+    },
+    "readOnlyDisplay": {
+      "type": "string",
+      "enum": ["text", "select"],
+      "description": "Display mode when field is read-only"
+    },
+    "dependsOn": {
+      "type": "string",
+      "description": "Field that this select depends on"
+    },
+    "layout": {
+      "type": "object",
+      "properties": {
+        "columnCount": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of columns in the layout"
+        },
+        "labelPosition": {
+          "type": "string",
+          "enum": ["top", "left", "right"],
+          "description": "Position of the field label"
+        }
+      }
+    },
+    "helperText": {
+      "type": "string",
+      "description": "Helper text shown below the field"
+    },
+    "cssClass": {
+      "type": "string",
+      "description": "Custom CSS class for styling"
+    },
+    "defaultValue": {
+      "type": "string",
+      "description": "Default selected value"
+    },
+    "validations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "value", "message"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["required", "minSelections", "maxSelections", "customValidator"],
+            "description": "Type of validation"
+          },
+          "value": {
+            "type": "string",
+            "description": "Validation parameter value"
+          },
+          "message": {
+            "type": "string",
+            "description": "Validation error message"
+          }
+        }
+      }
+    },
+    "conditions": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": ["AND", "OR"],
+          "description": "Logical operator for conditions"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "when": {
+                "type": "string",
+                "description": "Field to check condition against"
+              },
+              "operator": {
+                "type": "string",
+                "enum": ["EQUALS", "NOT_EQUALS", "CONTAINS", "NOT_CONTAINS"],
+                "description": "Comparison operator"
+              },
+              "value": {
+                "type": "string",
+                "description": "Value to compare against"
+              }
+            },
+            "required": ["when", "operator", "value"]
+          }
+        }
+      }
+    },
+    "visibility": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["simple", "complex"],
+          "description": "Type of visibility rule"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fieldId": {
+                "type": "string"
+              },
+              "operator": {
+                "type": "string",
+                "enum": ["equals", "notEquals"]
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": ["fieldId", "operator", "value"]
+          }
+        }
+      }
+    },
+    "editability": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["simple", "expression"],
+          "description": "Type of editability rule"
+        },
+        "conditions": {
+          "type": "object",
+          "properties": {
+            "fieldId": {
+              "type": "string"
+            },
+            "operator": {
+              "type": "string",
+              "enum": ["equals", "notEquals"]
+            },
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "defaultEditable": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "conditionalDisplay": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["simple", "complex"],
+          "description": "Type of display condition"
+        },
+        "expression": {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "type": "string",
+              "enum": ["AND", "OR"]
+            },
+            "conditions": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "fieldId": {
+                        "type": "string"
+                      },
+                      "operator": {
+                        "type": "string",
+                        "enum": ["equals", "notEquals"]
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["fieldId", "operator", "value"]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": ["AND", "OR"]
+                      },
+                      "conditions": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "fieldId": {
+                              "type": "string"
+                            },
+                            "operator": {
+                              "type": "string",
+                              "enum": ["equals", "notEquals"]
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": ["fieldId", "operator", "value"]
+                        }
+                      }
+                    },
+                    "required": ["operator", "conditions"]
+                  }
+                ]
+              }
+            }
+          },
+          "required": ["operator", "conditions"]
+        }
+      },
+      "required": ["type", "expression"]
+    },
+    "selectAll": {
+      "type": "boolean",
+      "description": "Whether to show select all option"
+    },
+    "allowCreate": {
+      "type": "boolean",
+      "description": "Whether to allow creating new options"
+    },
+    "createLabel": {
+      "type": "string",
+      "description": "Label for create new option"
+    },
+    "displayFields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Fields to display in the select options"
+    },
+    "maxSelections": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Maximum number of selections allowed"
+    },
+    "dataSource": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["static", "dynamic", "api", "database"],
+          "description": "Type of data source"
+        },
+        "dependsOn": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ],
+          "description": "Fields this data source depends on"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["value", "label"],
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Static data for options"
+        },
+        "endpoint": {
+          "type": "string",
+          "description": "API endpoint for fetching options"
+        },
+        "method": {
+          "type": "string",
+          "enum": ["GET", "POST"],
+          "description": "HTTP method for API call"
+        },
+        "searchParam": {
+          "type": "string",
+          "description": "Query parameter name for search"
+        },
+        "minChars": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Minimum characters before triggering search"
+        },
+        "debounceMs": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Debounce delay in milliseconds"
+        },
+        "headers": {
+          "type": "object",
+          "description": "Custom headers for API calls"
+        },
+        "params": {
+          "type": "object",
+          "description": "Additional parameters for API calls"
+        },
+        "responseMapping": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "string",
+              "description": "Path to items array in response"
+            },
+            "value": {
+              "type": "string",
+              "description": "Field to use as option value"
+            },
+            "label": {
+              "type": "string",
+              "description": "Field to use as option label"
+            },
+            "description": {
+              "type": "string",
+              "description": "Field to use as option description"
+            }
+          },
+          "required": ["value", "label"]
+        },
+        "entity": {
+          "type": "string",
+          "description": "Database entity name"
+        },
+        "searchFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Fields to search in database"
+        },
+        "displayTemplate": {
+          "type": "string",
+          "description": "Template for displaying database results"
+        },
+        "valueField": {
+          "type": "string",
+          "description": "Field to use as value from database"
+        },
+        "orderBy": {
+          "type": "string",
+          "description": "Sort order for database results"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "type": { "const": "static" } }
+          },
+          "then": {
+            "required": ["data"]
+          }
+        },
+        {
+          "if": {
+            "properties": { "type": { "const": "api" } }
+          },
+          "then": {
+            "required": ["endpoint", "method", "responseMapping"]
+          }
+        },
+        {
+          "if": {
+            "properties": { "type": { "const": "database" } }
+          },
+          "then": {
+            "required": ["entity", "valueField", "displayTemplate"]
+          }
+        }
+      ]
+    }
+  }
+}

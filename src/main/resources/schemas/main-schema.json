@@ -1,0 +1,30 @@
+{
+  "$id": "file:///home/darshit-bizott/Clapcle/json-core/src/main/resources/schemas/main-schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Form Configuration Schema",
+  "properties": {
+    "formTitle": {
+      "type": "string",
+      "description": "Title of the form"
+    },
+    "formDescription": {
+      "type": "string",
+      "description": "Description of the form"
+    },
+    "submitButtonText": {
+      "type": "string",
+      "description": "Text to display on the submit button"
+    },
+    "layout": {
+      "$ref": "layout-schema.json"
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "$ref": "section-schema.json"
+      }
+    }
+  },
+  "required": ["formTitle", "layout", "sections"]
+}

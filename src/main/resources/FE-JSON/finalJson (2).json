@@ -1,0 +1,3067 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": ["personalInfo", "additionalInfo"]
+          },
+          {
+            "id": "addressInfo",
+            "title": "Address Information",
+            "description": "Where do you live and where have you lived?",
+            "order": 2,
+            "sectionId": ["addressSection"]
+          },
+          {
+            "id": "employmentEducation",
+            "title": "Employment & Education",
+            "description": "Tell us about your professional and educational background",
+            "order": 3,
+            "sectionId": ["employmentEducationInfo"]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": ["personalInfo"],
+            "order": 1
+          },
+          {
+            "id": "step2",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": ["additionalInfo"],
+            "order": 1
+          },
+          {
+            "id": "step3",
+            "title": "Address Information",
+            "description": "Where do you live and where have you lived?",
+            "sectionId": ["addressSection"],
+            "order": 2
+          },
+          {
+            "id": "step5",
+            "title": "Additional Information",
+            "description": "Other details that help us understand your application",
+            "sectionId": ["employmentEducationInfo"],
+            "order": 3
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": {
+        "type": "simple",
+        "conditions": [
+          {
+            "fieldId": "isApplicant",
+            "operator": "equals",
+            "value": true
+          }
+        ]
+      },
+      "editability": {
+        "type": "expression",
+        "conditions": {
+          "fieldId": "userRole",
+          "operator": "notEquals",
+          "value": "viewer"
+        },
+        "defaultEditable": true
+      },
+      "fields": [
+        {
+          "id": "personName",
+          "name": "personName",
+          "label": "Full Name",
+          "type": "TEXT",
+          "defaultValue": "",
+          "description": "Enter your full legal name as shown on government ID",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "e.g., John Doe",
+          "formatter": "(XXX) XXX-XXXX",
+          "dependsOn": "state",
+          "readOnlyDisplay": "text",
+          "helperText": "Your name will appear on all official documents",
+          "cssClass": "full-width",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Name is required"
+            },
+            {
+              "type": "minLength",
+              "value": "2",
+              "message": "Name must be at least 2 characters long"
+            },
+            {
+              "type": "maxLength",
+              "value": "100",
+              "message": "Name must be under 100 characters"
+            },
+            {
+              "type": "pattern",
+              "value": "^[A-Za-z ]+$",
+              "message": "Name can only contain letters and spaces"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "showNameField",
+                "operator": "EQUALS",
+                "value": true
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "isApplicant",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "userRole",
+              "operator": "notEquals",
+              "value": "viewer"
+            },
+            "defaultEditable": true
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "hasPersonalDetails",
+                  "operator": "equals",
+                  "value": "yes"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "applicationType",
+                      "operator": "equals",
+                      "value": "full-time"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "applicationType",
+                          "operator": "equals",
+                          "value": "part-time"
+                        },
+                        {
+                          "fieldId": "experienceYears",
+                          "operator": "greaterThanOrEqual",
+                          "value": "2"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "expectedSalary",
+          "name": "expectedSalary",
+          "label": "Expected Salary (Monthly)",
+          "type": "CURRENCY",
+          "defaultValue": "",
+          "description": "Specify your monthly expected salary in your preferred currency",
+          "hidden": false,
+          "disabled": false,
+          "dependsOn": "country",
+          "placeholder": "e.g., 50000",
+          "readOnlyDisplay": "text",
+          "readOnlyTemplate": "text",
+          "helperText": "Please provide your expected salary per month",
+          "cssClass": "half-width salary-field",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Salary is required"
+            },
+            {
+              "type": "minValue",
+              "value": "1000",
+              "message": "Salary must be at least ₹1000"
+            },
+            {
+              "type": "maxValue",
+              "value": "1000000",
+              "message": "Salary should not exceed ₹10,00,000"
+            },
+            {
+              "type": "minLength",
+              "value": "2",
+              "message": "Salary must be at least 2 characters long"
+            },
+            {
+              "type": "maxLength",
+              "value": "100",
+              "message": "Salary must be under 100 characters"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "jobType",
+                "operator": "EQUALS",
+                "value": "fullTime"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "isEligibleForPayment",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "userRole",
+              "operator": "equals",
+              "value": "admin"
+            },
+            "defaultEditable": false
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "hasWorkExperience",
+                  "operator": "equals",
+                  "value": "yes"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "applyingFor",
+                      "operator": "equals",
+                      "value": "senior"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "applyingFor",
+                          "operator": "equals",
+                          "value": "mid"
+                        },
+                        {
+                          "fieldId": "yearsOfExperience",
+                          "operator": "greaterThanOrEqual",
+                          "value": "3"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "professionalSummary",
+          "name": "professionalSummary",
+          "label": "Professional Summary",
+          "type": "TEXTAREA",
+          "defaultValue": "",
+          "description": "Give a brief overview of your professional background.",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "Write your professional summary here...",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "dependsOn": "employmentStatus",
+          "helperText": "Include your work experience, roles, or major achievements.",
+          "cssClass": "textarea-highlight",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Professional summary is required"
+            },
+            {
+              "type": "minLength",
+              "value": "20",
+              "message": "Summary must be at least 20 characters long"
+            },
+            {
+              "type": "maxLength",
+              "value": "500",
+              "message": "Summary must be under 500 characters"
+            },
+            {
+              "type": "pattern",
+              "value": "^[A-Za-z0-9.,'\"()\\s]+$",
+              "message": "Only letters, numbers, and basic punctuation allowed"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "jobType",
+                "operator": "EQUALS",
+                "value": "fullTime"
+              },
+              {
+                "when": "experienceLevel",
+                "operator": "GREATER_THAN",
+                "value": 0
+              }
+            ]
+          },
+          "visibility": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "age",
+                  "operator": "greaterThanOrEqual",
+                  "value": 18
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "applyingFor",
+                      "operator": "equals",
+                      "value": "fullTime"
+                    },
+                    {
+                      "fieldId": "applyingFor",
+                      "operator": "equals",
+                      "value": "partTime"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "userRole",
+              "operator": "equals",
+              "value": "admin"
+            },
+            "defaultEditable": false
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "hasWorkExperience",
+                  "operator": "equals",
+                  "value": "yes"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "applyingFor",
+                      "operator": "equals",
+                      "value": "senior"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "applyingFor",
+                          "operator": "equals",
+                          "value": "mid"
+                        },
+                        {
+                          "fieldId": "yearsOfExperience",
+                          "operator": "greaterThanOrEqual",
+                          "value": "3"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "addressSection",
+      "title": "Address Information",
+      "description": "Enter your residential and mailing addresses",
+      "order": 2,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "address-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": {
+        "type": "simple",
+        "conditions": [
+          {
+            "fieldId": "isApplicant",
+            "operator": "equals",
+            "value": true
+          }
+        ]
+      },
+      "editability": {
+        "type": "expression",
+        "conditions": {
+          "fieldId": "userRole",
+          "operator": "notEquals",
+          "value": "viewer"
+        },
+        "defaultEditable": true
+      },
+      "fields": [
+        {
+          "id": "zipCode",
+          "name": "zipCode",
+          "label": "ZIP Code",
+          "type": "NUMBER",
+
+          "defaultValue": "",
+          "description": "Enter your 5-digit ZIP code.",
+          "min": 10000,
+          "max": 99999,
+          "step": 1,
+          "dependsOn": "country",
+          "helperText": "Please provide a valid ZIP code for your area.",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "e.g., 94105",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "cssClass": "",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "ZIP Code is required"
+            },
+            {
+              "type": "minValue",
+              "value": "10000",
+              "message": "ZIP Code must be at least 5 digits"
+            },
+            {
+              "type": "maxValue",
+              "value": "99999",
+              "message": "ZIP Code must not exceed 5 digits"
+            },
+            {
+              "type": "minLength",
+              "value": "3",
+              "message": "Must be greaterThan 3 characters"
+            },
+            {
+              "type": "maxLength",
+              "value": "50",
+              "message": "Must be lessThan 50 characters"
+            },
+            {
+              "type": "pattern",
+              "value": "^[0-9]{5}$",
+              "message": "ZIP Code must be a 5-digit number"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "country",
+                "operator": "equals",
+                "value": "US"
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "userRole",
+              "operator": "notEquals",
+              "value": "viewer"
+            },
+            "defaultEditable": true
+          },
+          "conditionalDisplay": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "hasAddress",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "isPrimaryResidence",
+          "name": "isPrimaryResidence",
+          "label": "Is this your primary residence?",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "description": "Indicate whether the address you provided is your primary place of residence.",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "",
+          "dependsOn": "state",
+          "readOnlyDisplay": "text",
+          "helperText": "Check this if this is your current living address.",
+          "cssClass": "toggle-switch",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please confirm if this is your primary residence."
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "country",
+                "operator": "EQUALS",
+                "value": "US"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "addressProvided",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": [{
+              "fieldId": "userRole",
+              "operator": "notEquals",
+              "value": "viewer"
+            }],
+            "defaultEditable": true
+          },
+          "conditionalDisplay": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "hasAddress",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "sameAsMailingAddress",
+          "name": "sameAsMailingAddress",
+          "label": "Same as Mailing Address",
+          "type": "CHECKBOX",
+
+          "defaultValue": false,
+          "description": "Check this box if your residential address is the same as your mailing address",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "right"
+          },
+          "helperText": "Selecting this will automatically copy your mailing address details",
+          "cssClass": "address-checkbox",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please indicate if this is the same as your mailing address"
+            },
+            {
+              "type": "minSelections",
+              "value": "1",
+              "message": "At least one option must be selected"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "options": [
+            {
+              "value": "yes",
+              "label": "Yes, I consent"
+            }
+          ],
+          "maxSelections": 1,
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "mailingAddressComplete",
+                "operator": "EQUALS",
+                "value": "true"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "addressType",
+                "operator": "equals",
+                "value": "residential"
+              }
+            ]
+          },
+          "editability": {
+            "type": "simple",
+            "conditions": {
+              "fieldId": "addressStatus",
+              "operator": "notEquals",
+              "value": "verified"
+            }
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "hasCurrentAddress",
+                  "operator": "equals",
+                  "value": "yes"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "residencyType",
+                      "operator": "equals",
+                      "value": "permanent"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "countryOfResidence",
+                          "operator": "equals",
+                          "value": "domestic"
+                        },
+                        {
+                          "fieldId": "addressDuration",
+                          "operator": "greaterThanOrEqual",
+                          "value": "6"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "phoneNumber",
+          "name": "phoneNumber",
+          "label": "Phone Number",
+          "type": "PHONE",
+
+          "defaultValue": "",
+          "description": "Please enter your primary contact number",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Enter phone number (e.g., +1 555-555-5555)",
+          "dependsOn": "country",
+          "readOnlyDisplay": "text",
+          "helperText": "Include country code and area code",
+          "cssClass": "phone-input",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Phone number is required"
+            },
+            {
+              "type": "minLength",
+              "value": "10",
+              "message": "Phone number must be at least 10 digits"
+            },
+            {
+              "type": "maxLength",
+              "value": "15",
+              "message": "Phone number cannot exceed 15 digits"
+            },
+            {
+              "type": "pattern",
+              "value": "^\\+?[1-9]\\d{1,14}$",
+              "message": "Please enter a valid phone number"
+            },
+            {
+              "type": "phone",
+              "value": "true",
+              "message": "Please enter a valid international phone number"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "contactPreference",
+                "operator": "EQUALS",
+                "value": "phone"
+              },
+              {
+                "when": "isInternational",
+                "operator": "EQUALS",
+                "value": "true"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "contactMethod",
+                "operator": "equals",
+                "value": "phone"
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "profileStatus",
+              "operator": "notEquals",
+              "value": "verified"
+            },
+            "defaultEditable": true
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "contactConsent",
+                  "operator": "equals",
+                  "value": "yes"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "contactType",
+                      "operator": "equals",
+                      "value": "primary"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "contactType",
+                          "operator": "equals",
+                          "value": "secondary"
+                        },
+                        {
+                          "fieldId": "hasAlternateContact",
+                          "operator": "equals",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "addressHistory",
+          "type": "repeatingSection",
+          "title": "Address History",
+          "description": "Add your Additional address, starting with the most recent",
+          "addButtonText": "Add Address",
+          "removeButtonText": "Remove Address",
+          "minItems": 1,
+          "maxItems": 10,
+          "defaultItems": 1,
+          "itemLabelTemplate": "{{items.institutionName}} - {{items.degreeName}} ({{items.gradYear}})",
+          "collapsible": true,
+          "defaultCollapsed": false,
+          "containerStyles": {
+            "border": "1px solid #e0e0e0",
+            "borderRadius": "4px",
+            "padding": "12px",
+            "marginBottom": "16px"
+          },
+          "template": {
+            "title": "Address Entry",
+            "layout": {
+              "columnCount": 2
+            },
+            "fields": [
+              {
+                "id": "zipCode",
+                "name": "zipCode",
+                "label": "ZIP Code",
+                "type": "NUMBER",
+
+                "defaultValue": "",
+                "description": "Enter your 5-digit ZIP code.",
+                "min": 10000,
+                "max": 99999,
+                "step": 1,
+                "dependsOn": "country",
+                "helperText": "Please provide a valid ZIP code for your area.",
+                "hidden": false,
+                "disabled": false,
+                "readOnlyDisplay": "text",
+                "placeholder": "e.g., 94105",
+                "layout": {
+                  "columnCount": 1,
+                  "labelPosition": "top"
+                },
+                "cssClass": "",
+                "validations": [
+                  {
+                    "type": "required",
+                    "value": "true",
+                    "message": "ZIP Code is required"
+                  },
+                  {
+                    "type": "minValue",
+                    "value": "10000",
+                    "message": "ZIP Code must be at least 5 digits"
+                  },
+                  {
+                    "type": "maxValue",
+                    "value": "99999",
+                    "message": "ZIP Code must not exceed 5 digits"
+                  },
+                  {
+                    "type": "pattern",
+                    "value": "^[0-9]{5}$",
+                    "message": "ZIP Code must be a 5-digit number"
+                  },
+                  {
+                    "customValidator": [{}]
+                  }
+                ],
+                "visibility": {
+                  "type": "simple",
+                  "conditions": [
+                    {
+                      "fieldId": "country",
+                      "operator": "equals",
+                      "value": "US"
+                    }
+                  ]
+                },
+                "editability": {
+                  "type": "expression",
+                  "conditions": {
+                    "fieldId": "userRole",
+                    "operator": "notEquals",
+                    "value": "viewer"
+                  },
+                  "defaultEditable": true
+                },
+                "conditionalDisplay": {
+                  "type": "simple",
+                  "conditions": [
+                    {
+                      "fieldId": "hasAddress",
+                      "operator": "equals",
+                      "value": true
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "isPrimaryResidence",
+                "name": "isPrimaryResidence",
+                "label": "Is this your primary residence?",
+                "type": "BOOLEAN",
+
+                "defaultValue": false,
+                "description": "Indicate whether the address you provided is your primary place of residence.",
+                "hidden": false,
+                "disabled": false,
+                "placeholder": "",
+                "readOnlyDisplay": "text",
+                "helperText": "Check this if this is your current living address.",
+                "cssClass": "toggle-switch",
+                "layout": {
+                  "columnCount": 1,
+                  "labelPosition": "top"
+                },
+                "validations": [
+                  {
+                    "type": "required",
+                    "value": "true",
+                    "message": "Please confirm if this is your primary residence."
+                  },
+                  {
+                    "customValidator": [{}]
+                  }
+                ],
+                "conditions": {
+                  "operator": "AND",
+                  "conditions": [
+                    {
+                      "when": "country",
+                      "operator": "EQUALS",
+                      "value": "US"
+                    }
+                  ]
+                },
+                "visibility": {
+                  "type": "simple",
+                  "conditions": [
+                    {
+                      "fieldId": "addressProvided",
+                      "operator": "equals",
+                      "value": true
+                    }
+                  ]
+                },
+                "editability": {
+                  "type": "expression",
+                  "conditions": {
+                    "fieldId": "userRole",
+                    "operator": "notEquals",
+                    "value": "viewer"
+                  },
+                  "defaultEditable": true
+                },
+                "conditionalDisplay": {
+                  "type": "simple",
+                  "conditions": [
+                    {
+                      "fieldId": "hasAddress",
+                      "operator": "equals",
+                      "value": true
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "sameAsMailingAddress",
+                "name": "sameAsMailingAddress",
+                "label": "Same as Mailing Address",
+                "type": "CHECKBOX",
+
+                "defaultValue": false,
+                "description": "Check this box if your residential address is the same as your mailing address",
+                "hidden": false,
+                "disabled": false,
+                "readOnlyDisplay": "text",
+                "layout": {
+                  "columnCount": 1,
+                  "labelPosition": "right"
+                },
+                "helperText": "Selecting this will automatically copy your mailing address details",
+                "cssClass": "address-checkbox",
+                "validations": [
+                  {
+                    "type": "required",
+                    "value": "true",
+                    "message": "Please indicate if this is the same as your mailing address"
+                  },
+                  {
+                    "type": "minSelections",
+                    "value": "1",
+                    "message": "At least one option must be selected"
+                  },
+                  {
+                    "customValidator": [{}]
+                  }
+                ],
+                "maxSelections": 1,
+                "conditions": {
+                  "operator": "AND",
+                  "conditions": [
+                    {
+                      "when": "mailingAddressComplete",
+                      "operator": "EQUALS",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "visibility": {
+                  "type": "simple",
+                  "conditions": [
+                    {
+                      "fieldId": "addressType",
+                      "operator": "equals",
+                      "value": "residential"
+                    }
+                  ]
+                },
+                "editability": {
+                  "type": "simple",
+                  "conditions": {
+                    "fieldId": "addressStatus",
+                    "operator": "notEquals",
+                    "value": "verified"
+                  }
+                },
+                "conditionalDisplay": {
+                  "type": "complex",
+                  "expression": {
+                    "operator": "AND",
+                    "conditions": [
+                      {
+                        "fieldId": "hasCurrentAddress",
+                        "operator": "equals",
+                        "value": "yes"
+                      },
+                      {
+                        "operator": "OR",
+                        "conditions": [
+                          {
+                            "fieldId": "residencyType",
+                            "operator": "equals",
+                            "value": "permanent"
+                          },
+                          {
+                            "operator": "AND",
+                            "conditions": [
+                              {
+                                "fieldId": "countryOfResidence",
+                                "operator": "equals",
+                                "value": "domestic"
+                              },
+                              {
+                                "fieldId": "addressDuration",
+                                "operator": "greaterThanOrEqual",
+                                "value": "6"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "additionalInfo",
+      "title": "Additional Information",
+      "description": "Eneer your Additional Information",
+      "order": 3,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "additionalInfo-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": {
+        "type": "simple",
+        "conditions": [
+          {
+            "fieldId": "isApplicant",
+            "operator": "equals",
+            "value": true
+          }
+        ]
+      },
+      "editability": {
+        "type": "expression",
+        "conditions": {
+          "fieldId": "userRole",
+          "operator": "notEquals",
+          "value": "viewer"
+        },
+        "defaultEditable": true
+      },
+      "fields": [
+        {
+          "id": "degreeLevel",
+          "name": "degreeLevel",
+          "label": "Highest Degree Level",
+          "type": "SELECT",
+          "description": "Select your highest completed education level",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Select your degree level",
+          "readOnlyDisplay": "text",
+          "dependsOn": "state",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "helperText": "Choose the highest degree you have completed or are currently pursuing",
+          "cssClass": "degree-select",
+          "defaultValue": "bachelors",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please select your degree level"
+            },
+            {
+              "type": "minSelections",
+              "value": "1",
+              "message": "Please select minimum 1"
+            },
+            {
+              "type": "maxSelections",
+              "value": "3",
+              "message": " select max 3 degree level"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "isStudent",
+                "operator": "EQUALS",
+                "value": "true"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "applicationType",
+                "operator": "equals",
+                "value": "academic"
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "applicationStatus",
+              "operator": "notEquals",
+              "value": "submitted"
+            },
+            "defaultEditable": true
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "educationSection",
+                  "operator": "equals",
+                  "value": "complete"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "programType",
+                      "operator": "equals",
+                      "value": "graduate"
+                    },
+                    {
+                      "fieldId": "programType",
+                      "operator": "equals",
+                      "value": "undergraduate"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "selectAll": false,
+          "allowCreate": false,
+          "createLabel": "Add other degree type",
+          "displayFields": ["label", "description"],
+          "maxSelections": 1,
+          "dataSource": {
+            "type": "static",
+            "dependsOn": "country",
+            "data": [
+              {
+                "value": "high_school",
+                "label": "High School Diploma",
+                "description": "Secondary education completion"
+              },
+              {
+                "value": "associates",
+                "label": "Associate's Degree",
+                "description": "2-year undergraduate degree"
+              },
+              {
+                "value": "bachelors",
+                "label": "Bachelor's Degree",
+                "description": "4-year undergraduate degree"
+              },
+              {
+                "value": "masters",
+                "label": "Master's Degree",
+                "description": "Graduate level degree"
+              },
+              {
+                "value": "doctorate",
+                "label": "Doctorate/Ph.D.",
+                "description": "Highest academic degree"
+              },
+              {
+                "value": "professional",
+                "label": "Professional Degree",
+                "description": "MD, JD, etc."
+              },
+              {
+                "value": "certification",
+                "label": "Professional Certification",
+                "description": "Specialized certification programs"
+              }
+            ]
+          }
+        },
+        {
+          "id": "companySelection",
+          "name": "companySelection",
+          "label": "Select Company",
+          "type": "SELECT",
+
+          "description": "Search and select your company",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Start typing company name...",
+          "readOnlyDisplay": "text",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "dependsOn": "state",
+          "helperText": "Type at least 2 characters to search for companies",
+          "cssClass": "company-select-field",
+          "defaultValue": "",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please select a company"
+            },
+            {
+              "type": "maxSelections",
+              "value": 5,
+              "message": "You can select up to 5 companies"
+            },
+            {
+              "type": "minSelections",
+              "value": 1,
+              "message": "You can select up to 1 companies"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "employmentStatus",
+                "operator": "EQUALS",
+                "value": "employed"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "isEmployed",
+                "operator": "equals",
+                "value": "true"
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "profileStatus",
+              "operator": "notEquals",
+              "value": "locked"
+            },
+            "defaultEditable": true
+          },
+          "allowCreate": true,
+          "createLabel": "Add new company",
+          "selectAll": false,
+          "displayFields": ["label", "description"],
+          "maxSelections": 5,
+          "dataSource": {
+            "type": "api",
+            "endpoint": "/api/companies/search",
+            "method": "GET",
+            "searchParam": "query",
+            "minChars": 2,
+            "debounceMs": 300,
+            "dependsOn": ["country", "state", "industry"],
+            "responseMapping": {
+              "items": "results",
+              "value": "id",
+              "label": "name",
+              "description": "industry"
+            }
+          }
+        },
+        {
+          "id": "employeeSelection",
+          "name": "teamMembers",
+          "label": "Select Team Members",
+          "type": "MULTISELECT",
+
+          "description": "Select team members for the project",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Search and select team members...",
+          "readOnlyDisplay": "text",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "dependsOn": ["department", "location"],
+          "helperText": "You can select up to 5 team members. Search by name or email.",
+          "cssClass": "team-member-select",
+          "defaultValue": [],
+          "validations": [
+            {
+              "type": "required",
+              "value": true,
+              "message": "Please select at least one team member"
+            },
+            {
+              "type": "minSelections",
+              "value": 1,
+              "message": "At least one team member must be selected"
+            },
+            {
+              "type": "maxSelections",
+              "value": 5,
+              "message": "You cannot select more than 5 team members"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "projectType",
+                "operator": "EQUALS",
+                "value": "team"
+              },
+              {
+                "when": "isProjectLead",
+                "operator": "EQUALS",
+                "value": "true"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "hasTeamAccess",
+                "operator": "equals",
+                "value": "true"
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "projectStatus",
+              "operator": "notEquals",
+              "value": "completed"
+            }
+          },
+          "selectAll": true,
+          "allowCreate": true,
+          "createLabel": "Add New Team Member",
+          "displayFields": ["fullName", "department", "role"],
+          "maxSelections": 5,
+          "dataSource": {
+            "type": "database",
+            "dependsOn": "employees",
+            "entity": "employees",
+            "searchFields": ["firstName", "lastName", "email", "employeeId"],
+            "displayTemplate": "{{firstName}} {{lastName}} - {{role}} ({{department}})",
+            "valueField": "employeeId",
+            "orderBy": "lastName ASC"
+          }
+        },
+        {
+          "id": "appointmentTime",
+          "name": "appointmentTime",
+          "label": "Preferred Time",
+          "type": "TIME",
+          "defaultValue": "09:00",
+          "description": "Select your preferred appointment time",
+          "hidden": false,
+          "timeFormat": "HH:mm",
+          "min": "",
+          "max": "",
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "HH:mm",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "dependsOn": "appointmentDate",
+          "helperText": "Business hours are from 09:00 to 17:00",
+          "cssClass": "appointment-time-field",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please select an appointment time"
+            },
+            {
+              "type": "minTime",
+              "value": "09:00",
+              "message": "Appointments start from 09:00"
+            },
+            {
+              "type": "maxTime",
+              "value": "17:00",
+              "message": "Last appointment must be before 17:00"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "serviceType",
+                "operator": "EQUALS",
+                "value": "consultation"
+              },
+              {
+                "when": "isBusinessDay",
+                "operator": "EQUALS",
+                "value": "true"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "always"
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "appointmentStatus",
+              "operator": "notEquals",
+              "value": "confirmed"
+            }
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "isTimeSlotRequired",
+                  "operator": "equals",
+                  "value": "true"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "serviceCategory",
+                      "operator": "equals",
+                      "value": "personal"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "bookingType",
+                          "operator": "equals",
+                          "value": "standard"
+                        },
+                        {
+                          "fieldId": "slotAvailability",
+                          "operator": "equals",
+                          "value": "open"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "appointmentDateTime",
+          "name": "appointmentDateTime",
+          "label": "Appointment Date & Time",
+          "type": "DATETIME",
+
+          "defaultValue": "",
+          "description": "Select your preferred appointment date and time",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "MM/DD/YYYY HH:mm",
+          "dateTimeFormat": "MM/DD/YYYY HH:mm",
+          "min": "",
+          "max": "",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "dependsOn": "serviceType",
+          "helperText": "Appointments available Monday-Friday, 9 AM to 5 PM",
+          "cssClass": "appointment-datetime-field",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Appointment date and time is required"
+            },
+            {
+              "type": "minDate",
+              "value": "2024-01-15",
+              "message": "Appointments must be scheduled at least 24 hours in advance"
+            },
+            {
+              "type": "maxDate",
+              "value": "2024-12-31",
+              "message": "Appointments cannot be scheduled more than 1 year in advance"
+            },
+            {
+              "type": "minTime",
+              "value": "09:00",
+              "message": "Appointments start from 9:00 AM"
+            },
+            {
+              "type": "maxTime",
+              "value": "17:00",
+              "message": "Last appointment must be before 5:00 PM"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "serviceAvailability",
+                "operator": "EQUALS",
+                "value": "open"
+              },
+              {
+                "when": "clientStatus",
+                "operator": "EQUALS",
+                "value": "active"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "always"
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "bookingStatus",
+              "operator": "notEquals",
+              "value": "confirmed"
+            }
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "isEligibleForBooking",
+                  "operator": "equals",
+                  "value": "true"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "appointmentType",
+                      "operator": "equals",
+                      "value": "initial"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "membershipLevel",
+                          "operator": "equals",
+                          "value": "premium"
+                        },
+                        {
+                          "fieldId": "slotAvailability",
+                          "operator": "equals",
+                          "value": "available"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "vacationPeriod",
+          "name": "vacationPeriod",
+          "label": "Vacation Period",
+          "type": "DATE_RANGE_PICKER",
+
+          "defaultValue": "",
+          "description": "Select your vacation start and end dates",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "Select date range",
+          "startRange": {
+            "label": "Start Date",
+            "placeholder": "MM/DD/YYYY",
+            "minDate": "2024-01-15",
+            "maxDate": "2024-12-31"
+          },
+          "endRange": {
+            "label": "End Date",
+            "placeholder": "MM/DD/YYYY",
+            "minDate": "2024-01-16",
+            "maxDate": "2025-01-14"
+          },
+          "dateFormat": "MM/DD/YYYY",
+          "min": "",
+          "max": "",
+          "layout": {
+            "columnCount": 2,
+            "labelPosition": "top"
+          },
+          "dependsOn": "employmentStatus",
+          "helperText": "Vacation period must be between 1 and 30 days",
+          "cssClass": "vacation-date-range",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please select both start and end dates"
+            },
+            {
+              "type": "minDate",
+              "value": "2024-01-15",
+              "message": "Vacation cannot start before January 15, 2024"
+            },
+            {
+              "type": "maxDate",
+              "value": "2024-12-31",
+              "message": "Vacation must start before December 31, 2024"
+            },
+            {
+              "type": "minSelections",
+              "value": "1",
+              "message": "Minimum vacation duration is 1 day"
+            },
+            {
+              "type": "maxSelections",
+              "value": "30",
+              "message": "Maximum vacation duration is 30 days"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "employmentStatus",
+                "operator": "EQUALS",
+                "value": "active"
+              },
+              {
+                "when": "leaveBalance",
+                "operator": "GREATER_THAN",
+                "value": "0"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "always"
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "leaveStatus",
+              "operator": "notEquals",
+              "value": "approved"
+            }
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "isEligibleForLeave",
+                  "operator": "equals",
+                  "value": "true"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "employeeType",
+                      "operator": "equals",
+                      "value": "fullTime"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "contractType",
+                          "operator": "equals",
+                          "value": "permanent"
+                        },
+                        {
+                          "fieldId": "yearsOfService",
+                          "operator": "greaterThanOrEqual",
+                          "value": "1"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "skillsSelection",
+          "name": "skillsSelection",
+          "label": "Professional Skills",
+          "type": "CHECKBOX_GROUP",
+
+          "defaultValue": ["technical"],
+          "description": "Select all skills that apply to your profile",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "layout": {
+            "columnCount": 2,
+            "labelPosition": "top"
+          },
+          "dependsOn": "jobCategory",
+          "helperText": "Select at least 2 skills but no more than 5 skills that best represent your expertise",
+          "cssClass": "skills-checkbox-group",
+          "selectAll": true,
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please select at least one skill"
+            },
+            {
+              "type": "minSelections",
+              "value": "2",
+              "message": "Please select at least 2 skills"
+            },
+            {
+              "type": "maxSelections",
+              "value": "5",
+              "message": "You can select up to 5 skills maximum"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "options": [
+            {
+              "value": "programming",
+              "label": "Programming",
+              "description": "Software development and coding",
+              "icon": "code"
+            },
+            {
+              "value": "database",
+              "label": "Database Management",
+              "description": "Database design and administration",
+              "icon": "database"
+            },
+            {
+              "value": "web_development",
+              "label": "Web Development",
+              "description": "Frontend and backend web technologies",
+              "icon": "web"
+            },
+            {
+              "value": "api_design",
+              "label": "API Design",
+              "description": "RESTful and GraphQL API development",
+              "icon": "api"
+            },
+            {
+              "value": "cloud_computing",
+              "label": "Cloud Computing",
+              "description": "AWS, Azure, or Google Cloud platforms",
+              "icon": "cloud"
+            },
+            {
+              "value": "devops",
+              "label": "DevOps",
+              "description": "CI/CD and infrastructure automation",
+              "icon": "devops"
+            },
+            {
+              "value": "security",
+              "label": "Security",
+              "description": "Application and network security",
+              "icon": "security"
+            },
+            {
+              "value": "agile",
+              "label": "Agile Methodologies",
+              "description": "Scrum and Kanban practices",
+              "icon": "agile"
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "experienceLevel",
+                "operator": "EQUALS",
+                "value": "experienced"
+              },
+              {
+                "when": "applicationStatus",
+                "operator": "EQUALS",
+                "value": "inProgress"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "positionType",
+                "operator": "equals",
+                "value": "technical"
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "profileStatus",
+              "operator": "notEquals",
+              "value": "locked"
+            }
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "isJobSeeker",
+                  "operator": "equals",
+                  "value": "true"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "profileType",
+                      "operator": "equals",
+                      "value": "professional"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "accountType",
+                          "operator": "equals",
+                          "value": "premium"
+                        },
+                        {
+                          "fieldId": "profileCompletion",
+                          "operator": "greaterThanOrEqual",
+                          "value": "50"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "profileImage",
+          "name": "profileImage",
+          "label": "Profile Image",
+          "type": "IMAGE_PICKER",
+
+          "defaultValue": "",
+          "description": "Upload or select a professional profile photo",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Click to upload image",
+          "readOnlyDisplay": "thumbnail",
+          "helperText": "Image must be JPEG/PNG, max 5MB, minimum 300x300px",
+          "cssClass": "profile-image-picker",
+          "dependsOn": "state",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Profile image is required"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "profileType",
+                "operator": "EQUALS",
+                "value": "personal"
+              },
+              {
+                "when": "accountStatus",
+                "operator": "EQUALS",
+                "value": "active"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "profileVisibility",
+                "operator": "equals",
+                "value": "public"
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "profileLocked",
+              "operator": "equals",
+              "value": "false"
+            },
+            "defaultEditable": true
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "isProfileComplete",
+                  "operator": "equals",
+                  "value": "true"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "membershipType",
+                      "operator": "equals",
+                      "value": "premium"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "verificationStatus",
+                          "operator": "equals",
+                          "value": "verified"
+                        },
+                        {
+                          "fieldId": "accountAge",
+                          "operator": "greaterThan",
+                          "value": "30"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "employmentEducationInfo",
+      "title": "Education Information",
+      "description": "Please provide your education details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "education-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": {
+        "type": "simple",
+        "conditions": [
+          {
+            "fieldId": "isApplicant",
+            "operator": "equals",
+            "value": true
+          }
+        ]
+      },
+      "editability": {
+        "type": "expression",
+        "conditions": {
+          "fieldId": "userRole",
+          "operator": "notEquals",
+          "value": "viewer"
+        },
+        "defaultEditable": true
+      },
+      "fields": [
+        {
+          "id": "educationLevel",
+          "name": "educationLevel",
+          "label": "Education Level",
+          "type": "RADIO",
+
+          "description": "Select your highest level of education completed",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "layout": {
+            "columnCount": 2,
+            "labelPosition": "top",
+            "alignment": "vertical"
+          },
+          "dependsOn": "applicationType",
+          "helperText": "Choose the option that best represents your educational qualification",
+          "cssClass": "education-radio-group",
+          "options": [
+            {
+              "value": "highSchool",
+              "label": "High School Diploma",
+              "description": "Secondary education or equivalent",
+              "icon": "school"
+            },
+            {
+              "value": "associates",
+              "label": "Associate's Degree",
+              "description": "2-year college degree",
+              "icon": "school"
+            },
+            {
+              "value": "bachelors",
+              "label": "Bachelor's Degree",
+              "description": "4-year university degree",
+              "icon": "school"
+            },
+            {
+              "value": "masters",
+              "label": "Master's Degree",
+              "description": "Graduate degree",
+              "icon": "school"
+            },
+            {
+              "value": "doctorate",
+              "label": "Doctorate/Ph.D.",
+              "description": "Doctoral degree",
+              "icon": "school"
+            }
+          ],
+          "defaultValue": "bachelors",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "This is required."
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "applicationType",
+                "operator": "EQUALS",
+                "value": "academic"
+              },
+              {
+                "when": "isStudent",
+                "operator": "EQUALS",
+                "value": "true"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "showEducation",
+                "operator": "equals",
+                "value": "true"
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "applicationStatus",
+              "operator": "notEquals",
+              "value": "submitted"
+            }
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "personalInfoComplete",
+                  "operator": "equals",
+                  "value": "true"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "programType",
+                      "operator": "equals",
+                      "value": "degree"
+                    },
+                    {
+                      "fieldId": "programType",
+                      "operator": "equals",
+                      "value": "certificate"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "contactEmail",
+          "name": "contactEmail",
+          "label": "Contact Email",
+          "type": "EMAIL",
+
+          "defaultValue": "",
+          "description": "Enter your business email address",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "john.doe@company.com",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "dependsOn": "contactPreference",
+          "helperText": "We will send important notifications to this email address",
+          "cssClass": "contact-email-field",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Business email address is required"
+            },
+            {
+              "type": "minLength",
+              "value": "5",
+              "message": "Email must be at least 5 characters long"
+            },
+            {
+              "type": "maxLength",
+              "value": "100",
+              "message": "Email must be under 100 characters"
+            },
+            {
+              "type": "pattern",
+              "value": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+              "message": "Please enter a valid email address format"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "contactMethod",
+                "operator": "EQUALS",
+                "value": "email"
+              },
+              {
+                "when": "accountType",
+                "operator": "EQUALS",
+                "value": "business"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "always"
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "accountStatus",
+              "operator": "equals",
+              "value": "pending"
+            },
+            "defaultEditable": true
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "isEmployee",
+                  "operator": "equals",
+                  "value": "yes"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "department",
+                      "operator": "equals",
+                      "value": "sales"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "role",
+                          "operator": "equals",
+                          "value": "manager"
+                        },
+                        {
+                          "fieldId": "accessLevel",
+                          "operator": "greaterThanOrEqual",
+                          "value": "2"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "userPassword",
+          "name": "userPassword",
+          "label": "Create Password",
+          "type": "PASSWORD",
+
+          "defaultValue": "",
+          "description": "Create a strong password for your account",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "Enter your password",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "dependsOn": "accountType",
+          "helperText": "Password must contain at least 8 characters, including uppercase, lowercase, number and special character",
+          "cssClass": "password-field",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Password is required"
+            },
+            {
+              "type": "minLength",
+              "value": "8",
+              "message": "Password must be at least 8 characters long"
+            },
+            {
+              "type": "maxLength",
+              "value": "32",
+              "message": "Password must not exceed 32 characters"
+            },
+            {
+              "type": "pattern",
+              "value": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+              "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "registrationType",
+                "operator": "EQUALS",
+                "value": "newUser"
+              },
+              {
+                "when": "accountStatus",
+                "operator": "EQUALS",
+                "value": "pending"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "always"
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "passwordResetToken",
+              "operator": "equals",
+              "value": "valid"
+            },
+            "defaultEditable": true
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "isNewRegistration",
+                  "operator": "equals",
+                  "value": "true"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "resetPassword",
+                      "operator": "equals",
+                      "value": "true"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "accountSetup",
+                          "operator": "equals",
+                          "value": "incomplete"
+                        },
+                        {
+                          "fieldId": "verificationStep",
+                          "operator": "equals",
+                          "value": "password"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "birthDate",
+          "name": "birthDate",
+          "label": "Date of Birth",
+          "type": "DATE",
+
+          "defaultValue": "",
+          "description": "Please enter your date of birth",
+          "hidden": false,
+          "dateFormat": "MM/DD/YYYY",
+          "min": "",
+          "max": "",
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "MM/DD/YYYY",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "dependsOn": "idType",
+          "helperText": "You must be at least 18 years old to register",
+          "cssClass": "birth-date-field",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Date of birth is required"
+            },
+            {
+              "type": "minDate",
+              "value": "1900-01-01",
+              "message": "Please enter a valid date of birth"
+            },
+            {
+              "type": "maxDate",
+              "value": "2024-01-01",
+              "message": "Date cannot be in the future"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "registrationType",
+                "operator": "EQUALS",
+                "value": "personal"
+              },
+              {
+                "when": "accountType",
+                "operator": "EQUALS",
+                "value": "individual"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "always"
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "profileStatus",
+              "operator": "notEquals",
+              "value": "verified"
+            }
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "isAdultVerificationRequired",
+                  "operator": "equals",
+                  "value": "true"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "serviceType",
+                      "operator": "equals",
+                      "value": "restricted"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "membershipLevel",
+                          "operator": "equals",
+                          "value": "premium"
+                        },
+                        {
+                          "fieldId": "verificationStep",
+                          "operator": "equals",
+                          "value": "age"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "salaryRange",
+          "name": "salaryRange",
+          "label": "Expected Salary Range",
+          "type": "RANGE",
+          "defaultValue": "75000",
+          "description": "Select your expected annual salary range in USD",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Slide to select salary range",
+          "startRange": "40000",
+          "endRange": "200000",
+          "min": "40000",
+          "max": "200000",
+          "step": "5000",
+          "readOnlyDisplay": "text",
+          "helperText": "Drag the slider to set your expected salary range",
+          "cssClass": "salary-range-slider",
+          "dependsOn": "accountType",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please select your expected salary range"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "jobType",
+                "operator": "EQUALS",
+                "value": "fullTime"
+              },
+              {
+                "when": "location",
+                "operator": "EQUALS",
+                "value": "onsite"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "applicationStage",
+                "operator": "equals",
+                "value": "salary"
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "negotiationPhase",
+              "operator": "equals",
+              "value": "active"
+            },
+            "defaultEditable": true
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "isQualified",
+                  "operator": "equals",
+                  "value": "true"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "experienceLevel",
+                      "operator": "equals",
+                      "value": "senior"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "experienceLevel",
+                          "operator": "equals",
+                          "value": "mid"
+                        },
+                        {
+                          "fieldId": "yearsOfExperience",
+                          "operator": "greaterThanOrEqual",
+                          "value": "3"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "sessionToken",
+          "name": "sessionToken",
+          "label": "Session Token",
+          "type": "HIDDEN",
+
+          "defaultValue": "",
+          "description": "Stores session authentication token",
+          "hidden": true,
+          "disabled": false,
+          "readOnlyDisplay": "none",
+          "cssClass": "system-hidden-field",
+          "dependsOn": "accountType",
+          "placeholder": "",
+          "helperText": "",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "none"
+          },
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "System token is required"
+            },
+            {
+              "type": "pattern",
+              "value": "^[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$",
+              "message": "Invalid token format"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "isAuthenticated",
+                "operator": "EQUALS",
+                "value": "true"
+              },
+              {
+                "when": "sessionActive",
+                "operator": "EQUALS",
+                "value": "true"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+*              {
+                "fieldId": "userPermissions",
+                "operator": "includes",
+                "value": "systemAccess"
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "userRole",
+              "operator": "equals",
+              "value": "system"
+            },
+            "defaultEditable": false
+          }
+        },
+        {
+          "id": "websiteUrl",
+          "name": "websiteUrl",
+          "label": "Website URL",
+          "type": "URL",
+
+          "defaultValue": "https://",
+          "description": "Enter your website or portfolio URL",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "https://example.com",
+          "readOnlyDisplay": "link",
+          "helperText": "Enter a valid URL including https:// or http://",
+          "cssClass": "url-input-field",
+          "dependsOn": "",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Website URL is required"
+            },
+
+            {
+              "type": "pattern",
+              "value": "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*\\/?$",
+              "message": "Invalid URL format"
+            },
+            {
+              "type": "minLength",
+              "value": "10",
+              "message": "URL must be at least 10 characters long"
+            },
+            {
+              "type": "maxLength",
+              "value": "2048",
+              "message": "URL is too long (maximum 2048 characters)"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "hasWebsite",
+                "operator": "EQUALS",
+                "value": "true"
+              },
+              {
+                "when": "profileType",
+                "operator": "EQUALS",
+                "value": "professional"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "showPortfolio",
+                "operator": "equals",
+                "value": "true"
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "profileLocked",
+              "operator": "equals",
+              "value": "false"
+            },
+            "defaultEditable": true
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "isExternalProfile",
+                  "operator": "equals",
+                  "value": "true"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "profileType",
+                      "operator": "equals",
+                      "value": "portfolio"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "profileType",
+                          "operator": "equals",
+                          "value": "professional"
+                        },
+                        {
+                          "fieldId": "hasWebPresence",
+                          "operator": "equals",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "fileUpload",
+          "name": "fileUpload",
+          "label": "File Upload",
+          "type": "FILE",
+
+          "defaultValue": "",
+          "description": "Upload your documents in PDF, JPG, or PNG format",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Drop files here or click to upload",
+          "readOnlyDisplay": "link",
+          "multiSelect": true,
+          "dependsOn": "",
+          "helperText": "Maximum file size: 5MB. Allowed formats: PDF, JPG, PNG",
+          "cssClass": "file-upload-field",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please upload at least one file"
+            },
+            {
+              "type": "fileType",
+              "value": [".jpg", ".png", ".pdf"],
+              "message": "Invalid file type. Please upload PDF, JPG, or PNG files only"
+            },
+            {
+              "type": "maxFileSizeMB",
+              "value": 5,
+              "message": "File size exceeds 5MB limit"
+            },
+            {
+              "type": "minSelections",
+              "value": "1",
+              "message": "Please select at least one file"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "conditions": {
+            "operator": "AND",
+            "conditions": [
+              {
+                "when": "documentType",
+                "operator": "EQUALS",
+                "value": "identification"
+              },
+              {
+                "when": "verificationRequired",
+                "operator": "EQUALS",
+                "value": "true"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "simple",
+            "conditions": [
+              {
+                "fieldId": "uploadRequired",
+                "operator": "equals",
+                "value": "true"
+              }
+            ]
+          },
+          "editability": {
+            "type": "expression",
+            "conditions": {
+              "fieldId": "documentStatus",
+              "operator": "equals",
+              "value": "pending"
+            },
+            "defaultEditable": true
+          },
+          "conditionalDisplay": {
+            "type": "complex",
+            "expression": {
+              "operator": "AND",
+              "conditions": [
+                {
+                  "fieldId": "documentSection",
+                  "operator": "equals",
+                  "value": "active"
+                },
+                {
+                  "operator": "OR",
+                  "conditions": [
+                    {
+                      "fieldId": "userType",
+                      "operator": "equals",
+                      "value": "business"
+                    },
+                    {
+                      "operator": "AND",
+                      "conditions": [
+                        {
+                          "fieldId": "userType",
+                          "operator": "equals",
+                          "value": "personal"
+                        },
+                        {
+                          "fieldId": "verificationLevel",
+                          "operator": "greaterThanOrEqual",
+                          "value": "2"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Repeating Section Schema",
+  "type": "object",
+  "required": ["id", "type", "title"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the repeating section"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["repeatingSection"],
+      "description": "Type identifier for repeating section component"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the repeating section"
+    },
+    "description": {
+      "type": "string"
+    },
+    "addButtonText": {
+      "type": "string"
+    },
+    "removeButtonText": {
+      "type": "string"
+    },
+    "minItems": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "maxItems": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "defaultItems": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "itemLabelTemplate": {
+      "type": "string"
+    },
+    "collapsible": {
+      "type": "boolean"
+    },
+    "defaultCollapsed": {
+      "type": "boolean"
+    },
+    "containerStyles": {
+      "type": "object",
+      "properties": {
+        "border": {
+          "type": "string"
+        },
+        "borderRadius": {
+          "type": "string"
+        },
+        "padding": {
+          "type": "string"
+        },
+        "marginBottom": {
+          "type": "string"
+        }
+      }
+    },
+    "template": {
+      "type": "object",
+      "required": ["fields"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "layout": {
+          "type": "object",
+          "properties": {
+            "columnCount": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "../field-schema.json"
+          }
+        }
+      }
+    }
+  }
+}

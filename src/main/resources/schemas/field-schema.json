@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Field Schema",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["TEXT", "SELECT", "CHECKBOX", "RADIO", "DATE","PHONE", "NUMBER", "TEXTAREA", "EMAIL","CURRENCY","repeatingSection","BOOLEAN","MULTISELECT"]
+    }
+  },
+  "required": ["id", "name", "label", "type"],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "type": { "const": "TEXT" } }
+      },
+      "then": {
+        "$ref": "field-types/text-field-schema.json"
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "repeatingSection" } }
+      },
+      "then": {
+        "$ref": "field-types/repeating_section_schema.json"
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "SELECT" } }
+      },
+      "then": {
+        "$ref": "field-types/select_field_schema.json"
+      }
+    }
+  ]
+}

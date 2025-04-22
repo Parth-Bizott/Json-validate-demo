@@ -1,0 +1,237 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": ["personalInfo", "additionalInfo"]
+          },
+          {
+            "id": "addressInfo",
+            "title": "Address Information",
+            "description": "Where do you live and where have you lived?",
+            "order": 2,
+            "sectionId": ["addressSection"]
+          },
+          {
+            "id": "employmentEducation",
+            "title": "Employment & Education",
+            "description": "Tell us about your professional and educational background",
+            "order": 3,
+            "sectionId": ["employmentEducationInfo"]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": ["personalInfo"],
+            "order": 1
+          },
+          {
+            "id": "step2",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": ["additionalInfo"],
+            "order": 1
+          },
+          {
+            "id": "step3",
+            "title": "Address Information",
+            "description": "Where do you live and where have you lived?",
+            "sectionId": ["addressSection"],
+            "order": 2
+          },
+          {
+            "id": "step5",
+            "title": "Additional Information",
+            "description": "Other details that help us understand your application",
+            "sectionId": ["employmentEducationInfo"],
+            "order": 3
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "personName",
+          "name": "personName",
+          "label": "Full Name",
+          "type": "TEXT",
+          "defaultValue": "",
+          "description": "Enter your full legal name as shown on government ID",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "e.g., John Doe",
+          "formatter": "(XXX) XXX-XXXX",
+          "readOnlyDisplay": "text",
+          "helperText": "Your name will appear on all official documents",
+          "cssClass": "full-width",
+
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Name is required"
+            },
+            {
+              "type": "minLength",
+              "value": "2",
+              "message": "Name must be at least 2 characters long"
+            },
+            {
+              "type": "maxLength",
+              "value": "100",
+              "message": "Name must be under 100 characters"
+            },
+            {
+              "type": "pattern",
+              "value": "^[A-Za-z ]+$",
+              "message": "Name can only contain letters and spaces"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        },
+        {
+          "id": "expectedSalary",
+          "name": "expectedSalary",
+          "label": "Expected Salary (Monthly)",
+          "type": "CURRENCY",
+          "defaultValue": "",
+          "description": "Specify your monthly expected salary in your preferred currency",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "e.g., 50000",
+          "readOnlyDisplay": "text",
+          "readOnlyTemplate": "text",
+          "helperText": "Please provide your expected salary per month",
+          "cssClass": "half-width salary-field",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Salary is required"
+            },
+            {
+              "type": "minValue",
+              "value": "1000",
+              "message": "Salary must be at least ₹1000"
+            },
+            {
+              "type": "maxValue",
+              "value": "1000000",
+              "message": "Salary should not exceed ₹10,00,000"
+            },
+            {
+              "type": "minLength",
+              "value": "2",
+              "message": "Salary must be at least 2 characters long"
+            },
+            {
+              "type": "maxLength",
+              "value": "100",
+              "message": "Salary must be under 100 characters"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        },
+        {
+          "id": "professionalSummary",
+          "name": "professionalSummary",
+          "label": "Professional Summary",
+          "type": "TEXTAREA",
+          "defaultValue": "",
+          "description": "Give a brief overview of your professional background.",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "Write your professional summary here...",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "helperText": "Include your work experience, roles, or major achievements.",
+          "cssClass": "textarea-highlight",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Professional summary is required"
+            },
+            {
+              "type": "minLength",
+              "value": "20",
+              "message": "Summary must be at least 20 characters long"
+            },
+            {
+              "type": "maxLength",
+              "value": "500",
+              "message": "Summary must be under 500 characters"
+            },
+            {
+              "type": "pattern",
+              "value": "^[A-Za-z0-9.,'\"()\\s]+$",
+              "message": "Only letters, numbers, and basic punctuation allowed"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        }
+      ]
+    }
+  ]
+}
