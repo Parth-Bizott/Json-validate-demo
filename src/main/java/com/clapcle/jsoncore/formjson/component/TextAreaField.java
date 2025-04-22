@@ -16,12 +16,11 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TextAreaField extends Field {
-    
+
     @Override
     public ValidateError toValidate(Map<String, String> data) {
 
         ValidateError validateError = new ValidateError();
-
         String requestValue = data.get(getId());
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
@@ -33,9 +32,9 @@ public class TextAreaField extends Field {
             }
         }
 
-        if(getEditability() != null && !getEditability().isEmpty()){
+        if (getEditability() != null && !getEditability().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getEditability());
-            if(!b && requestValue != null){
+            if (!b && requestValue != null) {
                 validateError.setValidationStatus(ValidationStatus.FAIL);
                 validateError.setErrorMessage("The provided value '" + requestValue + " was not accepted due to failing the editability criteria.");
             }
@@ -58,7 +57,7 @@ public class TextAreaField extends Field {
                 }
                 switch (type) {
                     case "minLength":
-                        if (requestValue!=null && requestValue.length() < Integer.parseInt(value)) {
+                        if (requestValue != null && requestValue.length() < Integer.parseInt(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;
@@ -67,7 +66,7 @@ public class TextAreaField extends Field {
 
                 switch (type) {
                     case "maxLength":
-                        if (requestValue!=null && requestValue.length() > Integer.parseInt(value)) {
+                        if (requestValue != null && requestValue.length() > Integer.parseInt(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;
@@ -75,7 +74,7 @@ public class TextAreaField extends Field {
                 }
                 switch (type) {
                     case "pattern":
-                        if (requestValue!=null && !requestValue.matches(value)) {
+                        if (requestValue != null && !requestValue.matches(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;
