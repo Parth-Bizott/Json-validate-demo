@@ -47,7 +47,11 @@ public class Form {
 
             section.getFields().forEach(field -> {
                 if (map.containsKey(field.getId())) {
-                    errorMap.get(section.getId()).put(field.getId(), field.toValidate(finalDataMap));
+                    try {
+                        errorMap.get(section.getId()).put(field.getId(), field.toValidate(finalDataMap));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
         });

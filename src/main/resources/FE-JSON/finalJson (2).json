@@ -1369,12 +1369,12 @@
             },
             {
               "type": "maxSelections",
-              "value": 5,
+              "value": "5",
               "message": "You can select up to 5 companies"
             },
             {
               "type": "minSelections",
-              "value": 1,
+              "value": "1",
               "message": "You can select up to 1 companies"
             },
             {

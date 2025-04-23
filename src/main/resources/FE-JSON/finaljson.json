@@ -14,21 +14,28 @@
             "title": "Basic Information",
             "description": "Provide your personal details",
             "order": 1,
-            "sectionId": ["personalInfo", "additionalInfo"]
+            "sectionId": [
+              "personalInfo",
+              "additionalInfo"
+            ]
           },
           {
             "id": "addressInfo",
             "title": "Address Information",
             "description": "Where do you live and where have you lived?",
             "order": 2,
-            "sectionId": ["addressSection"]
+            "sectionId": [
+              "addressSection"
+            ]
           },
           {
             "id": "employmentEducation",
             "title": "Employment & Education",
             "description": "Tell us about your professional and educational background",
             "order": 3,
-            "sectionId": ["employmentEducationInfo"]
+            "sectionId": [
+              "employmentEducationInfo"
+            ]
           }
         ]
       },
@@ -39,28 +46,36 @@
             "id": "step1",
             "title": "Basic Information",
             "description": "Provide your personal details",
-            "sectionId": ["personalInfo"],
+            "sectionId": [
+              "personalInfo"
+            ],
             "order": 1
           },
           {
             "id": "step2",
             "title": "Basic Information",
             "description": "Provide your personal details",
-            "sectionId": ["additionalInfo"],
+            "sectionId": [
+              "additionalInfo"
+            ],
             "order": 1
           },
           {
             "id": "step3",
             "title": "Address Information",
             "description": "Where do you live and where have you lived?",
-            "sectionId": ["addressSection"],
+            "sectionId": [
+              "addressSection"
+            ],
             "order": 2
           },
           {
             "id": "step5",
             "title": "Additional Information",
             "description": "Other details that help us understand your application",
-            "sectionId": ["employmentEducationInfo"],
+            "sectionId": [
+              "employmentEducationInfo"
+            ],
             "order": 3
           }
         ]
@@ -97,7 +112,6 @@
           "readOnlyDisplay": "text",
           "helperText": "Your name will appear on all official documents",
           "cssClass": "full-width",
-
           "validations": [
             {
               "type": "required",
@@ -230,6 +244,169 @@
           "visibility": "true",
           "editability": "",
           "conditionalDisplay": ""
+        },
+        {
+          "id": "degreeLevel",
+          "name": "degreeLevel",
+          "label": "Highest Degree Level",
+          "type": "SELECT",
+          "description": "Select your highest completed education level",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Select your degree level",
+          "readOnlyDisplay": "text",
+          "dependsOn": "state",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "helperText": "Choose the highest degree you have completed or are currently pursuing",
+          "cssClass": "degree-select",
+          "defaultValue": "bachelors",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please select your degree level"
+            },
+            {
+              "type": "minSelections",
+              "value": "1",
+              "message": "Please select minimum 1"
+            },
+            {
+              "type": "maxSelections",
+              "value": "3",
+              "message": " select max 3 degree level"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": "",
+          "selectAll": false,
+          "allowCreate": false,
+          "createLabel": "Add other degree type",
+          "displayFields": [
+            "label",
+            "description"
+          ],
+          "maxSelections": 1,
+          "dataSource": {
+            "type": "STATIC",
+            "dependsOn": ["country"],
+            "data": [
+              {
+                "value": "high_school",
+                "label": "High School Diploma",
+                "description": "Secondary education completion"
+              },
+              {
+                "value": "associates",
+                "label": "Associate's Degree",
+                "description": "2-year undergraduate degree"
+              },
+              {
+                "value": "bachelors",
+                "label": "Bachelor's Degree",
+                "description": "4-year undergraduate degree"
+              },
+              {
+                "value": "masters",
+                "label": "Master's Degree",
+                "description": "Graduate level degree"
+              },
+              {
+                "value": "doctorate",
+                "label": "Doctorate/Ph.D.",
+                "description": "Highest academic degree"
+              },
+              {
+                "value": "professional",
+                "label": "Professional Degree",
+                "description": "MD, JD, etc."
+              },
+              {
+                "value": "certification",
+                "label": "Professional Certification",
+                "description": "Specialized certification programs"
+              }
+            ]
+          }
+        },
+        {
+          "id": "companySelection",
+          "name": "companySelection",
+          "label": "Select Company",
+          "type": "SELECT",
+          "description": "Search and select your company",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Start typing company name...",
+          "readOnlyDisplay": "text",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "dependsOn": "state",
+          "helperText": "Type at least 2 characters to search for companies",
+          "cssClass": "company-select-field",
+          "defaultValue": "",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please select a company"
+            },
+            {
+              "type": "maxSelections",
+              "value": 5,
+              "message": "You can select up to 5 companies"
+            },
+            {
+              "type": "minSelections",
+              "value": 1,
+              "message": "You can select up to 1 companies"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "visibility": "true",
+          "editability": "",
+          "allowCreate": true,
+          "createLabel": "Add new company",
+          "selectAll": false,
+          "displayFields": [
+            "label",
+            "description"
+          ],
+          "maxSelections": 5,
+          "dataSource": {
+            "type": "API",
+            "endpoint": "/trial/get-module-master",
+            "method": "GET",
+            "searchParam": "query",
+            "minChars": 2,
+            "debounceMs": 300,
+            "dependsOn": [
+              "country",
+              "state",
+              "industry"
+            ],
+            "responseMapping": {
+              "items": "results",
+              "value": "id",
+              "label": "name",
+              "description": "industry"
+            }
+          }
         }
       ]
     }

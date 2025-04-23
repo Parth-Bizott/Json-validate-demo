@@ -18,4 +18,8 @@ public class DatabaseDataSource extends DataSource {
         this.type = "database";
     }
 
+    @Override
+    public List<String> getData() {
+        return List.of();
+    }
 }

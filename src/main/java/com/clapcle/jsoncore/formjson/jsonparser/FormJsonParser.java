@@ -119,7 +119,7 @@ public class FormJsonParser {
     public static void main(String[] args) {
         try {
 
-            String jsonContent = Files.readString(Paths.get("/home/darshit-bizott/Clapcle/json-core/src/main/resources/FE-JSON/finaljson.json"));
+            String jsonContent = Files.readString(Paths.get("/home/darshit-bizott/WorkSpace/Clapcle/Json-validate-demo/src/main/resources/FE-JSON/finaljson.json"));
             Form form = parseForm(jsonContent);
 //
 ////            JsonNode jsonNode = objectMapper.readTree(jsonContent);
@@ -133,6 +133,8 @@ public class FormJsonParser {
             dataMap.get("personalInfo").put("personName", "dd");
             dataMap.get("personalInfo").put("expectedSalary", "20");
             dataMap.get("personalInfo").put("professionalSummary", "this take");
+            dataMap.get("personalInfo").put("degreeLevel", "high_school");
+            dataMap.get("personalInfo").put("companySelection", "1");
 
             Map<String,Object> finalDataMap = new HashMap<>();
 

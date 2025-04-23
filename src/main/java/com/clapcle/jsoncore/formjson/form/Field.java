@@ -1,8 +1,6 @@
 package com.clapcle.jsoncore.formjson.form;
 
-import com.clapcle.jsoncore.formjson.component.CurrencyField;
-import com.clapcle.jsoncore.formjson.component.TextAreaField;
-import com.clapcle.jsoncore.formjson.component.TextField;
+import com.clapcle.jsoncore.formjson.component.*;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidationStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,7 +21,9 @@ import java.util.Map;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = TextField.class, name = "TEXT"),
         @JsonSubTypes.Type(value = TextAreaField.class, name = "TEXTAREA"),
-        @JsonSubTypes.Type(value = CurrencyField.class, name = "CURRENCY")
+        @JsonSubTypes.Type(value = CurrencyField.class, name = "CURRENCY"),
+        @JsonSubTypes.Type(value = RadioField.class, name = "RADIO"),
+        @JsonSubTypes.Type(value = SelectField.class, name = "SELECT"),
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Field {
@@ -52,7 +52,7 @@ public abstract class Field {
     @JsonProperty("validations")
     private List<ValidationRule> validationRules;
 
-    public abstract ValidateError toValidate(Map<String, Object> data);
+    public abstract ValidateError toValidate(Map<String, Object> data) throws Exception;
 
     public ValidateError checkMaliciousInput(Object requestedValue) {
         ValidateError validateError = new ValidateError();

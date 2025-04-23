@@ -6,6 +6,7 @@ import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidationStatus;
 import com.clapcle.jsoncore.formjson.util.FormValidationUtility;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.apache.commons.lang3.ObjectUtils;
 
@@ -14,6 +15,7 @@ import java.util.Map;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SelectField extends Field {
     private boolean selectAll;
     private boolean allowCreate;
@@ -23,17 +25,25 @@ public class SelectField extends Field {
     private List<String> displayFields;
 
     @Override
-    public ValidateError toValidate(Map<String, Object> data) {
+    public ValidateError toValidate(Map<String, Object> data) throws Exception {
 
         ValidateError validateError = new ValidateError();
         Object requestValue = data.get(getId());
-        List<?> selectedValues = null;
+        List<String> selectedValues = null;
         if (requestValue instanceof List) {
-            selectedValues = (List<?>) requestValue;
+            selectedValues = (List<String>) requestValue;
         } else if (requestValue instanceof String stringValue) {
             selectedValues = List.of(stringValue);
         }
 
+        List<String> allData = getDataSource().getData();
+        System.out.println("allData: " + allData);
+
+        if (!allData.containsAll(selectedValues)) {
+            validateError.setValidationStatus(ValidationStatus.FAIL);
+            validateError.setErrorMessage("The provided value '" + requestValue + " was not available in parent list");
+            return validateError;
+        }
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getConditionalDisplay());
@@ -55,7 +65,7 @@ public class SelectField extends Field {
         if (ObjectUtils.isNotEmpty(getValidationRules())) {
             for (ValidationRule rule : getValidationRules()) {
                 String type = rule.getType();
-                String value = (String) rule.getValue();
+                String value = rule.getValue().toString();
                 switch (type) {
                     case "required":
                         if ("true".equalsIgnoreCase(value) && (selectedValues == null || selectedValues.isEmpty())) {
