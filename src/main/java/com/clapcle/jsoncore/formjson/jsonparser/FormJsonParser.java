@@ -134,7 +134,7 @@ public class FormJsonParser {
             dataMap.get("personalInfo").put("expectedSalary", "20");
             dataMap.get("personalInfo").put("professionalSummary", "this take");
 
-            Map<String,String> finalDataMap = new HashMap<>();
+            Map<String,Object> finalDataMap = new HashMap<>();
 
             dataMap.forEach((k,v) -> {
                 finalDataMap.putAll(v);

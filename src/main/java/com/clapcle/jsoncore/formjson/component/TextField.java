@@ -20,10 +20,15 @@ public class TextField extends Field {
     private String formatter;
 
     @Override
-    public ValidateError toValidate(Map<String, String> data) {
+    public ValidateError toValidate(Map<String, Object> data) {
+
         ValidateError validateError = new ValidateError();
 
-        String requestValue = data.get(getId());
+        String requestValue = (String) data.get(getId());
+        ValidateError maliciousCheck = super.checkMaliciousInput(requestValue);
+        if (maliciousCheck != null) {
+            return maliciousCheck;
+        }
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getConditionalDisplay());
@@ -34,9 +39,9 @@ public class TextField extends Field {
             }
         }
 
-        if(getEditability() != null && !getEditability().isEmpty()){
+        if (getEditability() != null && !getEditability().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getEditability());
-            if(!b && requestValue != null){
+            if (!b && requestValue != null) {
                 validateError.setValidationStatus(ValidationStatus.FAIL);
                 validateError.setErrorMessage("The provided value '" + requestValue + " was not accepted due to failing the editability criteria.");
             }
@@ -59,28 +64,31 @@ public class TextField extends Field {
                 }
                 switch (type) {
                     case "minLength":
-                        if (requestValue!=null && requestValue.length() < Integer.parseInt(value)) {
+                        if (requestValue != null && requestValue.length() < Integer.parseInt(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;
                         }
+                        break;
                 }
 
                 switch (type) {
                     case "maxLength":
-                        if (requestValue!=null && requestValue.length() > Integer.parseInt(value)) {
+                        if (requestValue != null && requestValue.length() > Integer.parseInt(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;
                         }
+                        break;
                 }
                 switch (type) {
                     case "pattern":
-                        if (requestValue!=null && !requestValue.matches(value)) {
+                        if (requestValue != null && !requestValue.matches(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;
                         }
+                        break;
                 }
             }
         }

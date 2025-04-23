@@ -20,7 +20,7 @@ public class RatingField extends Field {
     private List<String> labels;
 
     @Override
-    public ValidateError toValidate(Map<String, String> data) {
+    public ValidateError toValidate(Map<String, Object> data) {
         return null;
     }
 }

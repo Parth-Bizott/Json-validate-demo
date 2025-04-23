@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class FormValidationUtility {
 
-    public static  boolean validateFormula(Map<String, String> data, String formula) {
+    public static  boolean validateFormula(Map<String, Object> data, String formula) {
 
         if (formula != null) {
             try {
@@ -19,7 +19,7 @@ public class FormValidationUtility {
         return true;
     }
 
-    public static String validateCondition(String formula, Map<String, String> data) throws ScriptException {
+    public static String validateCondition(String formula, Map<String, Object> data) throws ScriptException {
         var engine = new javax.script.ScriptEngineManager().getEngineByName("JavaScript");
         Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
         bindings.putAll(data);

@@ -13,14 +13,14 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FileField extends Field {
     private List<String> allowedFileTypes;
-    private long maxFileSize; // in bytes
+    private long maxFileSize;
     private int maxNumberOfFiles;
     private boolean dragDrop;
     private boolean showPreview;
     private boolean allowDelete;
 
     @Override
-    public ValidateError toValidate(Map<String, String> data) {
+    public ValidateError toValidate(Map<String, Object> data) {
         return null;
     }
 }

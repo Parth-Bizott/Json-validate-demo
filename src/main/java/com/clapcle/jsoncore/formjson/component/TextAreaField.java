@@ -18,10 +18,10 @@ import java.util.Map;
 public class TextAreaField extends Field {
 
     @Override
-    public ValidateError toValidate(Map<String, String> data) {
+    public ValidateError toValidate(Map<String, Object> data) {
 
         ValidateError validateError = new ValidateError();
-        String requestValue = data.get(getId());
+        String requestValue = (String) data.get(getId());
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getConditionalDisplay());
@@ -62,6 +62,7 @@ public class TextAreaField extends Field {
                             validateError.setValidationRule(rule);
                             return validateError;
                         }
+                        break;
                 }
 
                 switch (type) {
@@ -71,6 +72,7 @@ public class TextAreaField extends Field {
                             validateError.setValidationRule(rule);
                             return validateError;
                         }
+                        break;
                 }
                 switch (type) {
                     case "pattern":
@@ -79,6 +81,7 @@ public class TextAreaField extends Field {
                             validateError.setValidationRule(rule);
                             return validateError;
                         }
+                        break;
                 }
             }
         }

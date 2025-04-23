@@ -37,7 +37,7 @@ public class Form {
 //        return fieldMap;
 //    }
 
-    public Map<String, Map<String, ValidateError>> validate(Map<String, Map<String, String>> dataMap, Map<String, String> finalDataMap) {
+    public Map<String, Map<String, ValidateError>> validate(Map<String, Map<String, String>> dataMap, Map<String, Object> finalDataMap) {
         Map<String, Map<String, ValidateError>> errorMap = new HashMap<>();
 
         getSections().forEach(section -> {

@@ -18,7 +18,7 @@ public class ToggleField extends Field {
     private String offValue;
 
     @Override
-    public ValidateError toValidate(Map<String, String> data) {
+    public ValidateError toValidate(Map<String, Object> data) {
         return null;
     }
 }
