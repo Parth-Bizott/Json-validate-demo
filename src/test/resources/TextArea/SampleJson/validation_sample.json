@@ -1,0 +1,102 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": ["personalInfo"]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": ["personalInfo"],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "professionalSummary",
+          "name": "professionalSummary",
+          "label": "Professional Summary",
+          "type": "TEXTAREA",
+          "defaultValue": "",
+          "description": "Give a brief overview of your professional background.",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "Write your professional summary here...",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "helperText": "Include your work experience, roles, or major achievements.",
+          "cssClass": "textarea-highlight",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Professional summary is required"
+            },
+            {
+              "type": "minLength",
+              "value": "20",
+              "message": "Summary must be at least 20 characters long"
+            },
+            {
+              "type": "maxLength",
+              "value": "500",
+              "message": "Summary must be under 500 characters"
+            },
+            {
+              "type": "pattern",
+              "value": "^[A-Za-z0-9.,'\"()\\s]+$",
+              "message": "Only letters, numbers, and basic punctuation allowed"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        }
+      ]
+    }
+  ]
+}

@@ -6,7 +6,7 @@ import com.clapcle.jsoncore.formjson.form.ValidationRule;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidationStatus;
 import com.clapcle.jsoncore.formjson.util.FormValidationUtility;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.ObjectUtils;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PhoneField extends Field {
     private String format;
     private String defaultCountryCode;
@@ -26,6 +26,11 @@ public class PhoneField extends Field {
     public ValidateError toValidate(Map<String, Object> data) {
         ValidateError validateError = new ValidateError();
         String requestValue = (String) data.get(getId());
+
+        ValidateError maliciousCheck = super.checkMaliciousInput(requestValue);
+        if (maliciousCheck != null) {
+            return maliciousCheck;
+        }
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getConditionalDisplay());
@@ -91,7 +96,6 @@ public class PhoneField extends Field {
         }
         validateError.setValidationStatus(ValidationStatus.PASS);
         return validateError;
-
 
     }
 }

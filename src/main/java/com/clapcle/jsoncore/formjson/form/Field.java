@@ -22,8 +22,12 @@ import java.util.Map;
         @JsonSubTypes.Type(value = TextField.class, name = "TEXT"),
         @JsonSubTypes.Type(value = TextAreaField.class, name = "TEXTAREA"),
         @JsonSubTypes.Type(value = CurrencyField.class, name = "CURRENCY"),
+        @JsonSubTypes.Type(value = CurrencyField.class, name = "PHONE"),
+        @JsonSubTypes.Type(value = CurrencyField.class, name = "CURRENCY"),
         @JsonSubTypes.Type(value = RadioField.class, name = "RADIO"),
-        @JsonSubTypes.Type(value = SelectField.class, name = "SELECT"),
+        @JsonSubTypes.Type(value = EmailField.class, name = "EMAIL"),
+        @JsonSubTypes.Type(value = SelectField.class, name = "SELECT")
+
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Field {
