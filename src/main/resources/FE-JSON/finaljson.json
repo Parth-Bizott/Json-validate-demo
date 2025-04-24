@@ -268,21 +268,6 @@
               "type": "required",
               "value": "true",
               "message": "Please select your degree level"
-            },
-            {
-              "type": "minSelections",
-              "value": "1",
-              "message": "Please select minimum 1"
-            },
-            {
-              "type": "maxSelections",
-              "value": "3",
-              "message": " select max 3 degree level"
-            },
-            {
-              "type": "customValidator",
-              "value": "",
-              "message": ""
             }
           ],
           "visibility": "true",
@@ -361,21 +346,6 @@
               "type": "required",
               "value": "true",
               "message": "Please select a company"
-            },
-            {
-              "type": "maxSelections",
-              "value": 5,
-              "message": "You can select up to 5 companies"
-            },
-            {
-              "type": "minSelections",
-              "value": 1,
-              "message": "You can select up to 1 companies"
-            },
-            {
-              "type": "customValidator",
-              "value": "",
-              "message": ""
             }
           ],
           "visibility": "true",

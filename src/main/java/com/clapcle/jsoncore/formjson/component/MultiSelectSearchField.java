@@ -17,7 +17,7 @@ import java.util.Map;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SelectField extends Field {
+public class MultiSelectSearchField extends Field {
     private boolean selectAll;
     private boolean allowCreate;
     private String createLabel;
@@ -38,6 +38,7 @@ public class SelectField extends Field {
         }
 
         List<String> allData = getDataSource().getData();
+        System.out.println("allData: " + allData);
 
         if (!allData.containsAll(selectedValues)) {
             validateError.setValidationStatus(ValidationStatus.FAIL);
@@ -76,27 +77,27 @@ public class SelectField extends Field {
                         break;
                 }
 
-//                switch (type) {
-//                    case "minSelections":
-//                        int min = Integer.parseInt(value);
-//                        if (selectedValues == null || selectedValues.size() < min) {
-//                            validateError.setValidationStatus(ValidationStatus.FAIL);
-//                            validateError.setValidationRule(rule);
-//                            return validateError;
-//                        }
-//                        break;
-//                }
-//
-//                switch (type) {
-//                    case "maxSelections":
-//                        int max = Integer.parseInt(value);
-//                        if (selectedValues != null && selectedValues.size() > max) {
-//                            validateError.setValidationStatus(ValidationStatus.FAIL);
-//                            validateError.setValidationRule(rule);
-//                            return validateError;
-//                        }
-//                        break;
-//                }
+                switch (type) {
+                    case "minSelections":
+                        int min = Integer.parseInt(value);
+                        if (selectedValues == null || selectedValues.size() < min) {
+                            validateError.setValidationStatus(ValidationStatus.FAIL);
+                            validateError.setValidationRule(rule);
+                            return validateError;
+                        }
+                        break;
+                }
+
+                switch (type) {
+                    case "maxSelections":
+                        int max = Integer.parseInt(value);
+                        if (selectedValues != null && selectedValues.size() > max) {
+                            validateError.setValidationStatus(ValidationStatus.FAIL);
+                            validateError.setValidationRule(rule);
+                            return validateError;
+                        }
+                        break;
+                }
             }
         }
         validateError.setValidationStatus(ValidationStatus.PASS);

@@ -3,6 +3,7 @@ package com.clapcle.jsoncore.formjson.component.subcomponent;
 import com.clapcle.jsoncore.formjson.util.ResponseBean;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
