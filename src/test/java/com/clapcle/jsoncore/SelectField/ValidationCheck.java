@@ -66,11 +66,11 @@ class ValidationCheck {
     }
 
     @Test
-    void checkValidation_malicious() throws IOException {
-        String jsonContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/SampleJson/validation_sample.json"));
+    void checkValidation_malicious() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("SelectField/Samplejson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
 
-        String dataContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/dataJson/validation_data_malicious.json"));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("SelectField/dataJson/validation_data_malicious.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, String>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, String>>>() {
         });
@@ -85,7 +85,7 @@ class ValidationCheck {
 
         Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
 
-        assertEquals("FAIL", personalInfo.get("phoneNumber").getValidationStatus().toString());
+        assertEquals("FAIL", personalInfo.get("degreeLevel").getValidationStatus().toString());
     }
 
 }
