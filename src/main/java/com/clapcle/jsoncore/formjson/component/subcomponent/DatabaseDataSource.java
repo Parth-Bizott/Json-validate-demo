@@ -1,4 +1,4 @@
-package com.clapcle.jsoncore.formjson.component;
+package com.clapcle.jsoncore.formjson.component.subcomponent;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

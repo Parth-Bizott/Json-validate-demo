@@ -20,9 +20,6 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DateField extends Field {
     private String format;
-    private String minDate;
-    private String maxDate;
-    private List<String> disabledDates;
 
     @Override
     public ValidateError toValidate(Map<String, Object> data) {

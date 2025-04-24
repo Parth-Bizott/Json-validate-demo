@@ -42,7 +42,6 @@ public abstract class Field {
     private String description;
     private boolean hidden;
     private boolean disabled;
-    private String readOnlyDisplay;
     private String placeholder;
     private String helperText;
     private String visibility;

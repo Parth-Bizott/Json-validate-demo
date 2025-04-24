@@ -1,5 +1,6 @@
 package com.clapcle.jsoncore.formjson.component;
 
+import com.clapcle.jsoncore.formjson.component.subcomponent.DataSource;
 import com.clapcle.jsoncore.formjson.form.Field;
 import com.clapcle.jsoncore.formjson.form.ValidationRule;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;

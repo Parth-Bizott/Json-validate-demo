@@ -1,6 +1,5 @@
 package com.clapcle.jsoncore.formjson.component;
 
-import com.clapcle.jsoncore.formjson.component.subcomponent.Option;
 import com.clapcle.jsoncore.formjson.form.Field;
 import com.clapcle.jsoncore.formjson.form.ValidationRule;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
@@ -11,36 +10,26 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.ObjectUtils;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CheckboxField extends Field {
-    private List<Option> options;
-    private boolean allowSelectAll;
-    //    private int minSelectCount;
-    private int maxSelectCount;
-    private boolean allowOther;
-    private String otherPlaceholder;
-
+public class TimeField extends Field {
+    private String format;
 
     @Override
     public ValidateError toValidate(Map<String, Object> data) {
         ValidateError validateError = new ValidateError();
-        Object requestValue = data.get(getId());
-        List<?> selectedValues = null;
-        if (requestValue instanceof List) {
-            selectedValues = (List<?>) requestValue;
-        } else if (requestValue instanceof String stringValue) {
-            selectedValues = List.of(stringValue);
-        }
-
+        String requestValue = (String) data.get(getId());
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
-            boolean b = FormValidationUtility.validateFormula(data, getConditionalDisplay());
-            if (!b && requestValue != null) {
+            boolean conditionPassed = FormValidationUtility.validateFormula(data, getConditionalDisplay());
+            if (!conditionPassed && requestValue != null) {
                 validateError.setValidationStatus(ValidationStatus.FAIL);
                 validateError.setErrorMessage("The provided value '" + requestValue + " was not accepted due to failing the conditional display criteria.");
                 return validateError;
@@ -48,34 +37,56 @@ public class CheckboxField extends Field {
         }
 
         if (getEditability() != null && !getEditability().isEmpty()) {
-            boolean b = FormValidationUtility.validateFormula(data, getEditability());
-            if (!b && requestValue != null) {
+            boolean editable = FormValidationUtility.validateFormula(data, getEditability());
+            if (!editable && requestValue != null) {
                 validateError.setValidationStatus(ValidationStatus.FAIL);
                 validateError.setErrorMessage("The provided value '" + requestValue + " was not accepted due to failing the editability criteria.");
             }
         }
 
+        String timeFormat = (getFormat() != null && !getFormat().isEmpty()) ? getFormat() : "HH:mm:ss";
+
         if (ObjectUtils.isNotEmpty(getValidationRules())) {
+
             for (ValidationRule rule : getValidationRules()) {
                 String type = rule.getType();
                 String value = (String) rule.getValue();
+
                 switch (type) {
                     case "required":
-                        if ("true".equalsIgnoreCase(value) && (selectedValues == null || selectedValues.isEmpty())) {
+                        if ("true".equalsIgnoreCase(value) && (requestValue == null || requestValue.trim().isEmpty())) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;
                         }
                         break;
                 }
+                switch (type) {
+                    case "minTime":
+                        if (requestValue != null && !requestValue.trim().isEmpty()) {
+                            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(timeFormat);
+                            LocalTime inputTime = LocalTime.parse(requestValue, timeFormatter);
+                            LocalTime min = LocalTime.parse(value, timeFormatter);
+                            if (inputTime.isBefore(min)) {
+                                validateError.setValidationStatus(ValidationStatus.FAIL);
+                                validateError.setValidationRule(rule);
+                                return validateError;
+                            }
+                        }
+                        break;
+                }
 
                 switch (type) {
-                    case "minSelections":
-                        int min = Integer.parseInt(value);
-                        if (selectedValues == null || selectedValues.size() < min) {
-                            validateError.setValidationStatus(ValidationStatus.FAIL);
-                            validateError.setValidationRule(rule);
-                            return validateError;
+                    case "maxTime":
+                        if (requestValue != null && !requestValue.trim().isEmpty()) {
+                            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(timeFormat);
+                            LocalTime inputTime = LocalTime.parse(requestValue, timeFormatter);
+                            LocalTime max = LocalTime.parse(value, timeFormatter);
+                            if (inputTime.isAfter(max)) {
+                                validateError.setValidationStatus(ValidationStatus.FAIL);
+                                validateError.setValidationRule(rule);
+                                return validateError;
+                            }
                         }
                         break;
                 }

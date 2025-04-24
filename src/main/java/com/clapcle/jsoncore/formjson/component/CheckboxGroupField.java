@@ -17,15 +17,25 @@ import java.util.Map;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RadioField extends Field {
+public class CheckboxGroupField extends Field {
     private List<Option> options;
+    private boolean allowSelectAll;
+    private int maxSelectCount;
     private boolean allowOther;
     private String otherPlaceholder;
+
 
     @Override
     public ValidateError toValidate(Map<String, Object> data) {
         ValidateError validateError = new ValidateError();
-        String requestValue = (String) data.get(getId());
+        Object requestValue = data.get(getId());
+        List<?> selectedValues = null;
+        if (requestValue instanceof List) {
+            selectedValues = (List<?>) requestValue;
+        } else if (requestValue instanceof String stringValue) {
+            selectedValues = List.of(stringValue);
+        }
+
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getConditionalDisplay());
@@ -50,7 +60,18 @@ public class RadioField extends Field {
                 String value = (String) rule.getValue();
                 switch (type) {
                     case "required":
-                        if ("true".equalsIgnoreCase(value) && (requestValue == null || requestValue.isEmpty())) {
+                        if ("true".equalsIgnoreCase(value) && (selectedValues == null || selectedValues.isEmpty())) {
+                            validateError.setValidationStatus(ValidationStatus.FAIL);
+                            validateError.setValidationRule(rule);
+                            return validateError;
+                        }
+                        break;
+                }
+
+                switch (type) {
+                    case "minSelections":
+                        int min = Integer.parseInt(value);
+                        if (selectedValues == null || selectedValues.size() < min) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;

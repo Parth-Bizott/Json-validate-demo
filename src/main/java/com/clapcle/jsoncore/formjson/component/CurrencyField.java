@@ -16,7 +16,6 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CurrencyField extends Field {
-    private String readOnlyTemplate;
 
     @Override
     public ValidateError toValidate(Map<String, Object> data) {
