@@ -26,7 +26,7 @@ class ValidationCheck {
 
         String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("SelectField/dataJson/validation_data_required.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Map<String, String>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, String>>>() {
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
 
         Map<String,Object> finalDataMap = new HashMap<>();
@@ -49,7 +49,7 @@ class ValidationCheck {
 
         String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("SelectField/dataJson/validation_data_all.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Map<String, String>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, String>>>() {
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
 
         Map<String,Object> finalDataMap = new HashMap<>();
@@ -72,7 +72,7 @@ class ValidationCheck {
 
         String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("SelectField/dataJson/validation_data_malicious.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Map<String, String>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, String>>>() {
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
 
         Map<String,Object> finalDataMap = new HashMap<>();

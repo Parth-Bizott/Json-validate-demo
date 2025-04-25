@@ -1,4 +1,4 @@
-package com.clapcle.jsoncore.SelectField;
+package com.clapcle.jsoncore.MultiSelectField;
 
 import com.clapcle.jsoncore.formjson.component.subcomponent.ApiDataSource;
 import com.clapcle.jsoncore.formjson.form.Form;
@@ -18,7 +18,7 @@ import java.util.Map;
 import static com.clapcle.jsoncore.formjson.jsonparser.FormJsonParser.parseForm;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ConditionalDisplayCheck {
+public class EditabilityCheck {
 
     @Mock
     private ApiDataSource apiDataSource;
@@ -31,12 +31,12 @@ public class ConditionalDisplayCheck {
 
 
     @Test
-    void checkConditionalDisplay_metWithCondition() throws Exception {
+    void checkEditability_metWithCondition() throws Exception {
 
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("SelectField/Samplejson/conditionalDisplay_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("MultiSelectField/Samplejson/editability_sample.json").toURI()));
         Form form = parseForm(jsonContent);
 
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("SelectField/dataJson/conditionalDisplay_data.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("MultiSelectField/dataJson/editability_data.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
@@ -107,12 +107,12 @@ public class ConditionalDisplayCheck {
     }
 
     @Test
-    void checkConditionalDisplay_metWithConditionSuccess() throws IOException, URISyntaxException {
+    void checkEditability_metWithConditionSuccess() throws IOException, URISyntaxException {
 
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("SelectField/Samplejson/conditionalDisplay_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("MultiSelectField/Samplejson/editability_sample.json").toURI()));
         Form form = parseForm(jsonContent);
 
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("SelectField/dataJson/conditionalDisplay_data_success.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("MultiSelectField/dataJson/editability_data_success.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
