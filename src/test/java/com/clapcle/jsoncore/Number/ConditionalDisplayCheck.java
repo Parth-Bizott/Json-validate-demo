@@ -1,4 +1,4 @@
-package com.clapcle.jsoncore.number;
+package com.clapcle.jsoncore.Number;
 
 import com.clapcle.jsoncore.formjson.form.Form;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
@@ -20,9 +20,9 @@ public class ConditionalDisplayCheck {
 
     @Test
     void checkConditionalDisplay_metWithCondition() throws IOException, URISyntaxException {
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/samplejson/conditionalDisplay_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/samplejson/conditionalDisplay_sample.json").toURI()));
         Form form = parseForm(jsonContent);
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/datajson/conditionalDisplay_data.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/datajson/conditionalDisplay_data.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
@@ -38,9 +38,9 @@ public class ConditionalDisplayCheck {
 
     @Test
     void checkConditionalDisplay_metWithConditionSuccess() throws IOException, URISyntaxException {
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/samplejson/conditionalDisplay_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/samplejson/conditionalDisplay_sample.json").toURI()));
         Form form = parseForm(jsonContent);
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/datajson/conditionalDisplay_data_success.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/datajson/conditionalDisplay_data_success.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });

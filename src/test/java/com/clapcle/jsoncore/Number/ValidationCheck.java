@@ -1,4 +1,4 @@
-package com.clapcle.jsoncore.number;
+package com.clapcle.jsoncore.Number;
 
 import com.clapcle.jsoncore.formjson.form.Form;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
@@ -21,9 +21,9 @@ public class ValidationCheck {
     @Test
     void checkValidation_required() throws IOException, URISyntaxException {
 
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/samplejson/validation_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/samplejson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/datajson/validation_data_required.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/datajson/validation_data_required.json").toURI()));
 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
@@ -39,9 +39,9 @@ public class ValidationCheck {
 
     @Test
     void checkValidation_all() throws IOException, URISyntaxException {
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/samplejson/validation_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/samplejson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/datajson/validation_data_all.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/datajson/validation_data_all.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
@@ -57,9 +57,9 @@ public class ValidationCheck {
     @Test
     void checkValidation_malicious() throws IOException, URISyntaxException {
 
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/samplejson/validation_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/samplejson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/datajson/validation_data_malicious.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/datajson/validation_data_malicious.json").toURI()));
 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
@@ -76,9 +76,9 @@ public class ValidationCheck {
     @Test
     void checkValidation_minValue() throws IOException, URISyntaxException {
 
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/samplejson/validation_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/samplejson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/datajson/validation_data_minvalue.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/datajson/validation_data_minvalue.json").toURI()));
 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
@@ -95,9 +95,9 @@ public class ValidationCheck {
     @Test
     void checkValidation_maxValue() throws IOException, URISyntaxException {
 
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/samplejson/validation_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/samplejson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/datajson/validation_data_maxValue.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/datajson/validation_data_maxValue.json").toURI()));
 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
@@ -114,9 +114,9 @@ public class ValidationCheck {
     @Test
     void checkValidation_pattern() throws IOException, URISyntaxException {
 
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/samplejson/validation_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/samplejson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("number/datajson/validation_data_pattern.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Number/datajson/validation_data_pattern.json").toURI()));
 
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {

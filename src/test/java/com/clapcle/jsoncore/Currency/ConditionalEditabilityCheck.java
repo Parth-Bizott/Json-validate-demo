@@ -1,4 +1,4 @@
-package com.clapcle.jsoncore.currency;
+package com.clapcle.jsoncore.Currency;
 
 import com.clapcle.jsoncore.formjson.form.Form;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
@@ -20,9 +20,9 @@ public class ConditionalEditabilityCheck {
 
     @Test
     void checkConditionalDisplay_metWithCondition() throws IOException, URISyntaxException {
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("currency/samplejson/conditionalEditability_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Currency/samplejson/conditionalEditability_sample.json").toURI()));
         Form form = parseForm(jsonContent);
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("currency/datajson/conditionalEditability_data.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Currency/datajson/conditionalEditability_data.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
@@ -39,9 +39,9 @@ public class ConditionalEditabilityCheck {
 
     @Test
     void checkConditionalDisplay_metWithConditionSuccess() throws IOException, URISyntaxException {
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("currency/samplejson/conditionalEditability_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Currency/samplejson/conditionalEditability_sample.json").toURI()));
         Form form = parseForm(jsonContent);
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("currency/datajson/conditionalEditability_data_success.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Currency/datajson/conditionalEditability_data_success.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });

@@ -1,4 +1,4 @@
-package com.clapcle.jsoncore.booleanvalue;
+package com.clapcle.jsoncore.Currency;
 
 import com.clapcle.jsoncore.formjson.form.Form;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
@@ -16,13 +16,13 @@ import java.util.Map;
 import static com.clapcle.jsoncore.formjson.jsonparser.FormJsonParser.parseForm;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ConditionalEditabilityCheck {
+public class ConditionalDisplayCheck {
 
     @Test
     void checkConditionalDisplay_metWithCondition() throws IOException, URISyntaxException {
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("boolean/samplejson/conditionalEditability_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Currency/samplejson/conditionalDisplay_sample.json").toURI()));
         Form form = parseForm(jsonContent);
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("boolean/datajson/conditionalEditability_data.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Currency/datajson/conditionalDisplay_data.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
@@ -31,16 +31,17 @@ public class ConditionalEditabilityCheck {
             finalDataMap.putAll(v);
         });
         Map<String, Map<String, ValidateError>> errorMap = form.validate(dataMap, finalDataMap);
-        Map<String, ValidateError> personalInfo = errorMap.get("addressSection");
-        assertEquals("FAIL", personalInfo.get("isPrimaryResidence").getValidationStatus().toString());
-        assertEquals("PASS", personalInfo.get("zipCode").getValidationStatus().toString());
+        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
+        assertEquals("PASS", personalInfo.get("contactEmail").getValidationStatus().toString());
+        assertEquals("PASS", personalInfo.get("personSurName").getValidationStatus().toString());
+        assertEquals("FAIL", personalInfo.get("expectedSalary").getValidationStatus().toString());
     }
 
     @Test
     void checkConditionalDisplay_metWithConditionSuccess() throws IOException, URISyntaxException {
-        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("boolean/samplejson/conditionalEditability_sample.json").toURI()));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Currency/samplejson/conditionalDisplay_sample.json").toURI()));
         Form form = parseForm(jsonContent);
-        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("boolean/datajson/conditionalEditability_data_success.json").toURI()));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("Currency/datajson/conditionalDisplay_data_success.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
@@ -49,9 +50,10 @@ public class ConditionalEditabilityCheck {
             finalDataMap.putAll(v);
         });
         Map<String, Map<String, ValidateError>> errorMap = form.validate(dataMap, finalDataMap);
-        Map<String, ValidateError> personalInfo = errorMap.get("addressSection");
-        assertEquals("PASS", personalInfo.get("isPrimaryResidence").getValidationStatus().toString());
-        assertEquals("PASS", personalInfo.get("zipCode").getValidationStatus().toString());
+        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
+        assertEquals("PASS", personalInfo.get("contactEmail").getValidationStatus().toString());
+        assertEquals("PASS", personalInfo.get("personSurName").getValidationStatus().toString());
+        assertEquals("PASS", personalInfo.get("expectedSalary").getValidationStatus().toString());
     }
 
 }
