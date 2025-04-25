@@ -36,7 +36,7 @@ import java.util.Map;
         @JsonSubTypes.Type(value = DateTimeField.class, name = "DATETIME"),
         @JsonSubTypes.Type(value = BooleanField.class, name = "BOOLEAN"),
         @JsonSubTypes.Type(value = NumberField.class, name = "NUMBER"),
-        @JsonSubTypes.Type(value = RepeatingSectionField.class, name = "REPEATINGSECTIONFIELD")
+        @JsonSubTypes.Type(value = RepeatingSectionField.class, name = "REPEATING_SECTION")
 
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
