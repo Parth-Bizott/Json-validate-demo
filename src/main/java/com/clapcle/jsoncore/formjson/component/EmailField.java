@@ -57,8 +57,6 @@ public class EmailField extends Field {
                             return validateError;
                         }
                         break;
-                }
-                switch (type) {
                     case "minLength":
                         if (requestValue != null && requestValue.length() < Integer.parseInt(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
@@ -66,9 +64,6 @@ public class EmailField extends Field {
                             return validateError;
                         }
                         break;
-                }
-
-                switch (type) {
                     case "maxLength":
                         if (requestValue != null && requestValue.length() > Integer.parseInt(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
@@ -76,8 +71,6 @@ public class EmailField extends Field {
                             return validateError;
                         }
                         break;
-                }
-                switch (type) {
                     case "pattern":
                         if (requestValue != null && !requestValue.matches(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);

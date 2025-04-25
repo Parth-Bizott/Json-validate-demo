@@ -67,8 +67,6 @@ public class TimeField extends Field {
                             return validateError;
                         }
                         break;
-                }
-                switch (type) {
                     case "minTime":
                         if (requestValue != null && !requestValue.trim().isEmpty()) {
                             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(timeFormat);
@@ -81,9 +79,6 @@ public class TimeField extends Field {
                             }
                         }
                         break;
-                }
-
-                switch (type) {
                     case "maxTime":
                         if (requestValue != null && !requestValue.trim().isEmpty()) {
                             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(timeFormat);

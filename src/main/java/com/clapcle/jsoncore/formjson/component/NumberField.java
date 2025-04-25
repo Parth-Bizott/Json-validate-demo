@@ -66,8 +66,6 @@ public class NumberField extends Field {
                             return validateError;
                         }
                         break;
-                }
-                switch (type) {
                     case "maxValue":
                         if (requestValue != null && Integer.parseInt(requestValue) > Integer.parseInt(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
@@ -75,8 +73,6 @@ public class NumberField extends Field {
                             return validateError;
                         }
                         break;
-                }
-                switch (type) {
                     case "minValue":
                         if (requestValue != null && Integer.parseInt(requestValue) < Integer.parseInt(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
@@ -84,8 +80,6 @@ public class NumberField extends Field {
                             return validateError;
                         }
                         break;
-                }
-                switch (type) {
                     case "pattern":
                         if (requestValue != null && !requestValue.matches(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);

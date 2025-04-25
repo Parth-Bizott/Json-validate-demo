@@ -70,8 +70,6 @@ public class DateTimeField extends Field {
                             return validateError;
                         }
                         break;
-                }
-                switch (type) {
                     case "minDate":
                         if (requestValue != null && !requestValue.trim().isEmpty()) {
                             LocalDateTime input = LocalDateTime.parse(requestValue, DateTimeFormatter.ofPattern(dateTimeFormat));
@@ -84,9 +82,6 @@ public class DateTimeField extends Field {
                             }
                         }
                         break;
-                }
-
-                switch (type) {
                     case "maxDate":
                         if (requestValue != null && !requestValue.trim().isEmpty()) {
                             LocalDateTime input = LocalDateTime.parse(requestValue, DateTimeFormatter.ofPattern(dateTimeFormat));
@@ -99,9 +94,6 @@ public class DateTimeField extends Field {
                             }
                         }
                         break;
-                }
-
-                switch (type) {
                     case "minTime":
                         if (requestValue != null && !requestValue.trim().isEmpty()) {
                             LocalDateTime input = LocalDateTime.parse(requestValue, DateTimeFormatter.ofPattern(dateTimeFormat));
@@ -114,9 +106,6 @@ public class DateTimeField extends Field {
                             }
                         }
                         break;
-                }
-
-                switch (type) {
                     case "maxTime":
                         if (requestValue != null && !requestValue.trim().isEmpty()) {
                             LocalDateTime input = LocalDateTime.parse(requestValue, DateTimeFormatter.ofPattern(dateTimeFormat));

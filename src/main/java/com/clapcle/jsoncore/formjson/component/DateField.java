@@ -65,8 +65,6 @@ public class DateField extends Field {
                             return validateError;
                         }
                         break;
-                }
-                switch (type) {
                     case "minDate":
                         if (requestValue != null && !requestValue.trim().isEmpty()) {
                             LocalDate inputDate = LocalDate.parse(requestValue, DateTimeFormatter.ofPattern(dateFormat));
@@ -78,9 +76,6 @@ public class DateField extends Field {
                             }
                         }
                         break;
-                }
-
-                switch (type) {
                     case "maxDate":
                         if (requestValue != null && !requestValue.trim().isEmpty()) {
                             LocalDate inputDate = LocalDate.parse(requestValue, DateTimeFormatter.ofPattern(dateFormat));

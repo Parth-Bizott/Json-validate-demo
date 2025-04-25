@@ -62,8 +62,6 @@ public class BooleanField extends Field {
                             return validateError;
                         }
                         break;
-                }
-                switch (type) {
                     case "pattern":
                         if (requestValue != null && !requestValue.matches(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);

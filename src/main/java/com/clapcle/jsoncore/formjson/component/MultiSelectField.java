@@ -76,23 +76,17 @@ public class MultiSelectField extends Field {
                             return validateError;
                         }
                         break;
-                }
-
-                switch (type) {
-                    case "minSelections":
-                        int min = Integer.parseInt(value);
-                        if (selectedValues == null || selectedValues.size() < min) {
+                    case "maxSelections":
+                        int max = Integer.parseInt(value);
+                        if (selectedValues != null && selectedValues.size() > max) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;
                         }
                         break;
-                }
-
-                switch (type) {
-                    case "maxSelections":
-                        int max = Integer.parseInt(value);
-                        if (selectedValues != null && selectedValues.size() > max) {
+                    case "minSelections":
+                        int min = Integer.parseInt(value);
+                        if (selectedValues == null || selectedValues.size() < min) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;

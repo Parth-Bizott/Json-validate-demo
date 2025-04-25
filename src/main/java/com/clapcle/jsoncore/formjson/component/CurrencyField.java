@@ -61,8 +61,6 @@ public class CurrencyField extends Field {
                             return validateError;
                         }
                         break;
-                }
-                switch (type) {
                     case "minLength":
                         if (requestValue != null && requestValue.length() < Integer.parseInt(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
@@ -70,9 +68,6 @@ public class CurrencyField extends Field {
                             return validateError;
                         }
                         break;
-                }
-
-                switch (type) {
                     case "maxLength":
                         if (requestValue != null && BigInteger.valueOf(Long.parseLong(requestValue)).compareTo(BigInteger.valueOf(Long.parseLong(value))) > 0) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
@@ -80,9 +75,6 @@ public class CurrencyField extends Field {
                             return validateError;
                         }
                         break;
-                }
-
-                switch (type) {
                     case "maxValue":
                         if (requestValue != null && Double.parseDouble(requestValue) > Double.parseDouble(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
@@ -90,8 +82,6 @@ public class CurrencyField extends Field {
                             return validateError;
                         }
                         break;
-                }
-                switch (type) {
                     case "minValue":
                         if (requestValue != null && Double.parseDouble(requestValue) < Double.parseDouble(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
@@ -99,8 +89,6 @@ public class CurrencyField extends Field {
                             return validateError;
                         }
                         break;
-                }
-                switch (type) {
                     case "pattern":
                         if (requestValue != null && !requestValue.matches(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);

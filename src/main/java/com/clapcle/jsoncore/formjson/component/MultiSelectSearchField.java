@@ -76,9 +76,6 @@ public class MultiSelectSearchField extends Field {
                             return validateError;
                         }
                         break;
-                }
-
-                switch (type) {
                     case "minSelections":
                         int min = Integer.parseInt(value);
                         if (selectedValues == null || selectedValues.size() < min) {
@@ -87,9 +84,6 @@ public class MultiSelectSearchField extends Field {
                             return validateError;
                         }
                         break;
-                }
-
-                switch (type) {
                     case "maxSelections":
                         int max = Integer.parseInt(value);
                         if (selectedValues != null && selectedValues.size() > max) {

@@ -78,16 +78,12 @@ public class CheckboxField extends Field {
                 String value = (String) rule.getValue();
                 switch (type) {
                     case "required":
-                        if ("true".equalsIgnoreCase(value) && (selectedValues == null ||selectedValues.isEmpty())) {
+                        if ("true".equalsIgnoreCase(value) && (selectedValues == null || selectedValues.isEmpty())) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;
                         }
                         break;
-                }
-                
-
-                switch (type) {
                     case "minSelections":
                         int min = Integer.parseInt(value);
                         if (selectedValues == null || selectedValues.size() < min) {
@@ -96,9 +92,6 @@ public class CheckboxField extends Field {
                             return validateError;
                         }
                         break;
-                }
-
-                switch (type) {
                     case "maxSelections":
                         int max = Integer.parseInt(value);
                         if (selectedValues == null || selectedValues.size() > max) {
