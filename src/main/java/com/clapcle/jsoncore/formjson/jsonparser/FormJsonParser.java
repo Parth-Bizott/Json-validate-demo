@@ -128,6 +128,11 @@ public class FormJsonParser {
 //            System.out.println("Successfully parsed form: " + ((TextField)textField).getFormatter());
             System.out.println("Successfully parsed form: " + form.getFormDescription());
 
+            List<Map<String,Object>> addressHistoryList = new ArrayList<>();
+            Map<String,Object> addressHistory = new HashMap<>();
+            addressHistory.put("address1", "123");
+            addressHistoryList.add(addressHistory);
+
             Map<String,Map<String,Object>> dataMap = new HashMap<>();
             dataMap.put("personalInfo", new HashMap<>());
             dataMap.get("personalInfo").put("personName", "dd");
@@ -135,6 +140,9 @@ public class FormJsonParser {
             dataMap.get("personalInfo").put("professionalSummary", "this take");
             dataMap.get("personalInfo").put("degreeLevel", "high_school");
             dataMap.get("personalInfo").put("companySelection", "1");
+            dataMap.get("personalInfo").put("addressHistory", addressHistoryList);
+
+
 
             Map<String,Object> finalDataMap = new HashMap<>();
 

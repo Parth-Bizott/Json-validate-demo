@@ -32,7 +32,7 @@ public class SelectField extends Field {
         Object requestValue = data.get(getId());
         List<String> selectedValues = null;
         if (requestValue instanceof List) {
-            selectedValues = (List<String>) requestValue;
+            throw new RuntimeException("select proper data");
         } else if (requestValue instanceof String stringValue) {
             selectedValues = List.of(stringValue);
         }
@@ -59,6 +59,7 @@ public class SelectField extends Field {
             if (!b && requestValue != null) {
                 validateError.setValidationStatus(ValidationStatus.FAIL);
                 validateError.setErrorMessage("The provided value '" + requestValue + " was not accepted due to failing the editability criteria.");
+                return validateError;
             }
         }
 
