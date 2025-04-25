@@ -399,6 +399,26 @@
             "padding": "12px",
             "marginBottom": "16px"
           },
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please select your degree level"
+            },
+            {
+              "type": "minSelections",
+              "value": "1",
+              "message": "Please select minimum 1"
+            },
+            {
+              "type": "maxSelections",
+              "value": "3",
+              "message": " select max 3 degree level"
+            }
+          ],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": "(expectedSalary > 50000)",
           "fields": [
             {
               "id": "personName",

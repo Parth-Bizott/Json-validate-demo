@@ -27,8 +27,9 @@ import java.util.Map;
         @JsonSubTypes.Type(value = RadioField.class, name = "RADIO"),
         @JsonSubTypes.Type(value = EmailField.class, name = "EMAIL"),
         @JsonSubTypes.Type(value = SelectField.class, name = "SELECT"),
+        @JsonSubTypes.Type(value = SelectSearchField.class, name = "SELECT_SEARCH"),
         @JsonSubTypes.Type(value = MultiSelectField.class, name = "MULTISELECT"),
-        @JsonSubTypes.Type(value = MultiSelectSearchField.class, name = "MULTISELECTSEARCH"),
+        @JsonSubTypes.Type(value = MultiSelectSearchField.class, name = "MULTI_SELECT_SEARCH"),
         @JsonSubTypes.Type(value = DateField.class, name = "DATE"),
         @JsonSubTypes.Type(value = TimeField.class, name = "TIME"),
         @JsonSubTypes.Type(value = PasswordField.class, name = "PASSWORD"),
@@ -37,7 +38,6 @@ import java.util.Map;
         @JsonSubTypes.Type(value = BooleanField.class, name = "BOOLEAN"),
         @JsonSubTypes.Type(value = NumberField.class, name = "NUMBER"),
         @JsonSubTypes.Type(value = RepeatingSectionField.class, name = "REPEATING_SECTION")
-
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Field {

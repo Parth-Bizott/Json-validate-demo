@@ -1,0 +1,18 @@
+{
+  "personalInfo": {
+    "addressHistory": [
+      {
+        "personName": "Parth",
+        "professionalSummary": "Parth",
+        "expectedSalary": "40000"
+      },
+      {
+        "personName": "abc",
+        "professionalSummary": "abc",
+        "expectedSalary": "50000"
+      }
+    ],
+    "companySelection": "1",
+    "expectedSalary": "60000"
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": [
+              "personalInfo"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": [
+              "personalInfo"
+            ],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "personSurName",
+          "name": "personSurName",
+          "label": "Sur Name",
+          "type": "TEXT",
+          "defaultValue": "",
+          "description": "Enter your surname as shown on government ID",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "e.g., John Doe",
+          "formatter": "(XXX) XXX-XXXX",
+          "readOnlyDisplay": "text",
+          "helperText": "Your name will appear on all official documents",
+          "cssClass": "full-width",
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        },
+        {
+          "id": "phoneNumber",
+          "name": "phoneNumber",
+          "label": "Phone Number",
+          "type": "PHONE",
+          "defaultValue": "",
+          "description": "Please enter your primary contact number",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Enter phone number (e.g., +1 555-555-5555)",
+          "readOnlyDisplay": "text",
+          "helperText": "Include country code and area code",
+          "cssClass": "phone-input",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": "(expectedSalary > 50000)"
+        },
+        {
+          "id": "expectedSalary",
+          "name": "expectedSalary",
+          "label": "Expected Salary (Monthly)",
+          "type": "CURRENCY",
+          "defaultValue": "",
+          "description": "Specify your monthly expected salary in your preferred currency",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "e.g., 50000",
+          "readOnlyDisplay": "text",
+          "readOnlyTemplate": "text",
+          "helperText": "Please provide your expected salary per month",
+          "cssClass": "half-width salary-field",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        },
+        {
+          "id": "degreeLevel",
+          "name": "degreeLevel",
+          "label": "Highest Degree Level",
+          "type": "SELECT",
+          "description": "Select your highest completed education level",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Select your degree level",
+          "readOnlyDisplay": "text",
+          "dependsOn": "state",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "helperText": "Choose the highest degree you have completed or are currently pursuing",
+          "cssClass": "degree-select",
+          "defaultValue": "bachelors",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please select your degree level"
+            },
+            {
+              "type": "minSelections",
+              "value": "1",
+              "message": "Please select minimum 1"
+            },
+            {
+              "type": "maxSelections",
+              "value": "3",
+              "message": " select max 3 degree level"
+            }
+          ],
+          "visibility": "true",
+          "editability": "(expectedSalary > 50000)",
+          "conditionalDisplay": "",
+          "selectAll": false,
+          "allowCreate": false,
+          "createLabel": "Add other degree type",
+          "displayFields": [
+            "label",
+            "description"
+          ],
+          "maxSelections": 1,
+          "dataSource": {
+            "type": "STATIC",
+            "dependsOn": ["country"],
+            "data": [
+              {
+                "value": "high_school",
+                "label": "High School Diploma",
+                "description": "Secondary education completion"
+              },
+              {
+                "value": "associates",
+                "label": "Associate's Degree",
+                "description": "2-year undergraduate degree"
+              },
+              {
+                "value": "bachelors",
+                "label": "Bachelor's Degree",
+                "description": "4-year undergraduate degree"
+              },
+              {
+                "value": "masters",
+                "label": "Master's Degree",
+                "description": "Graduate level degree"
+              },
+              {
+                "value": "doctorate",
+                "label": "Doctorate/Ph.D.",
+                "description": "Highest academic degree"
+              },
+              {
+                "value": "professional",
+                "label": "Professional Degree",
+                "description": "MD, JD, etc."
+              },
+              {
+                "value": "certification",
+                "label": "Professional Certification",
+                "description": "Specialized certification programs"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
