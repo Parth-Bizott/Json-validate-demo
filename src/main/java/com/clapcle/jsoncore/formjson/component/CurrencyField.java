@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.ObjectUtils;
 
+import java.math.BigInteger;
 import java.util.Map;
 
 @Data
@@ -22,6 +23,11 @@ public class CurrencyField extends Field {
 
         ValidateError validateError = new ValidateError();
         String requestValue = (String) data.get(getId());
+
+        ValidateError maliciousCheck = super.checkMaliciousInput(requestValue);
+        if (maliciousCheck != null) {
+            return maliciousCheck;
+        }
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getConditionalDisplay());
@@ -37,6 +43,7 @@ public class CurrencyField extends Field {
             if (!b && requestValue != null) {
                 validateError.setValidationStatus(ValidationStatus.FAIL);
                 validateError.setErrorMessage("The provided value '" + requestValue + " was not accepted due to failing the editability criteria.");
+                return validateError;
             }
         }
 
@@ -67,7 +74,7 @@ public class CurrencyField extends Field {
 
                 switch (type) {
                     case "maxLength":
-                        if (requestValue != null && requestValue.length() > Integer.parseInt(value)) {
+                        if (requestValue != null && BigInteger.valueOf(Long.parseLong(requestValue)).compareTo(BigInteger.valueOf(Long.parseLong(value))) > 0) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;
@@ -77,7 +84,7 @@ public class CurrencyField extends Field {
 
                 switch (type) {
                     case "maxValue":
-                        if (requestValue != null && Integer.parseInt(requestValue) > Integer.parseInt(value)) {
+                        if (requestValue != null && Double.parseDouble(requestValue) > Double.parseDouble(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;
@@ -86,7 +93,7 @@ public class CurrencyField extends Field {
                 }
                 switch (type) {
                     case "minValue":
-                        if (requestValue != null && Integer.parseInt(requestValue) < Integer.parseInt(value)) {
+                        if (requestValue != null && Double.parseDouble(requestValue) < Double.parseDouble(value)) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;

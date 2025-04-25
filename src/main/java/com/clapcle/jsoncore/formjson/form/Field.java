@@ -31,7 +31,11 @@ import java.util.Map;
         @JsonSubTypes.Type(value = TimeField.class, name = "TIME"),
         @JsonSubTypes.Type(value = PasswordField.class, name = "PASSWORD"),
         @JsonSubTypes.Type(value = CheckboxField.class, name = "CHECKBOX"),
-        @JsonSubTypes.Type(value = DateTimeField.class, name = "DATETIME")
+        @JsonSubTypes.Type(value = DateTimeField.class, name = "DATETIME"),
+        @JsonSubTypes.Type(value = SelectField.class, name = "SELECT"),
+        @JsonSubTypes.Type(value = BooleanField.class, name = "BOOLEAN"),
+        @JsonSubTypes.Type(value = NumberField.class, name = "NUMBER")
+
 
 })
 @JsonIgnoreProperties(ignoreUnknown = true)

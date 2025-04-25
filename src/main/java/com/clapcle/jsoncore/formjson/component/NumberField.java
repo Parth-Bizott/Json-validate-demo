@@ -29,6 +29,11 @@ public class NumberField extends Field {
         ValidateError validateError = new ValidateError();
         String requestValue = (String) data.get(getId());
 
+        ValidateError maliciousCheck = super.checkMaliciousInput(requestValue);
+        if (maliciousCheck != null) {
+            return maliciousCheck;
+        }
+
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getConditionalDisplay());
             if (!b && requestValue != null) {
@@ -43,6 +48,7 @@ public class NumberField extends Field {
             if (!b && requestValue != null) {
                 validateError.setValidationStatus(ValidationStatus.FAIL);
                 validateError.setErrorMessage("The provided value '" + requestValue + " was not accepted due to failing the editability criteria.");
+                return validateError;
             }
         }
 
@@ -61,26 +67,6 @@ public class NumberField extends Field {
                         }
                         break;
                 }
-                switch (type) {
-                    case "minLength":
-                        if (requestValue != null && requestValue.length() < Integer.parseInt(value)) {
-                            validateError.setValidationStatus(ValidationStatus.FAIL);
-                            validateError.setValidationRule(rule);
-                            return validateError;
-                        }
-                        break;
-                }
-
-                switch (type) {
-                    case "maxLength":
-                        if (requestValue != null && requestValue.length() > Integer.parseInt(value)) {
-                            validateError.setValidationStatus(ValidationStatus.FAIL);
-                            validateError.setValidationRule(rule);
-                            return validateError;
-                        }
-                        break;
-                }
-
                 switch (type) {
                     case "maxValue":
                         if (requestValue != null && Integer.parseInt(requestValue) > Integer.parseInt(value)) {

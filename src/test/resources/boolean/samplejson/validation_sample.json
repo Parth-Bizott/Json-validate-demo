@@ -1,0 +1,117 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "addressInfo",
+            "title": "Address Information",
+            "description": "Where do you live and where have you lived?",
+            "order": 2,
+            "sectionId": [
+              "addressSection"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step3",
+            "title": "Address Information",
+            "description": "Where do you live and where have you lived?",
+            "sectionId": [
+              "addressSection"
+            ],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "addressSection",
+      "title": "Address Information",
+      "description": "Enter your residential and mailing addresses",
+      "order": 2,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "address-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "isPrimaryResidence",
+          "name": "isPrimaryResidence",
+          "label": "Is this your primary residence?",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "description": "Indicate whether the address you provided is your primary place of residence.",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "",
+          "readOnlyDisplay": "text",
+          "helperText": "Check this if this is your current living address.",
+          "cssClass": "toggle-switch",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please confirm if this is your primary residence."
+            },
+            {
+              "type": "pattern",
+              "value": "^(true|false)$",
+              "message": "Enter valid value for isPrimaryResidence"
+            }
+          ],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        },
+        {
+          "id": "zipCode",
+          "name": "zipCode",
+          "label": "ZIP Code",
+          "type": "NUMBER",
+          "defaultValue": "",
+          "description": "Enter your 5-digit ZIP code.",
+          "min": 10000,
+          "max": 99999,
+          "step": 1,
+          "dependsOn": "country",
+          "helperText": "Please provide a valid ZIP code for your area.",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "e.g., 94105",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "cssClass": "",
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        }
+      ]
+    }
+  ]
+}
