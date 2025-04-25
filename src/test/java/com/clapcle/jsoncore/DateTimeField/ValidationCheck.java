@@ -1,0 +1,183 @@
+package com.clapcle.jsoncore.DateTimeField;
+
+import com.clapcle.jsoncore.formjson.form.Form;
+import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.clapcle.jsoncore.formjson.jsonparser.FormJsonParser.parseForm;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class ValidationCheck {
+
+    @Test
+    void checkValidation_required() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/SampleJson/validation_sample.json").toURI()));
+        Form form = parseForm(jsonContent);
+
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/dataJson/validation_data_required.json").toURI()));
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
+        });
+
+        Map<String,Object> finalDataMap = new HashMap<>();
+
+        dataMap.forEach((k,v) -> {
+            finalDataMap.putAll(v);
+        });
+
+        Map<String, Map<String, ValidateError>> errorMap = form.validate(dataMap, finalDataMap);
+
+        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
+
+        assertEquals("FAIL", personalInfo.get("appointmentDateTime").getValidationStatus().toString());
+    }
+
+    @Test
+    void checkValidation_maxDate() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/SampleJson/validation_sample.json").toURI()));
+        Form form = parseForm(jsonContent);
+
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/dataJson/validation_data_maxDate.json").toURI()));
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
+        });
+
+        Map<String,Object> finalDataMap = new HashMap<>();
+
+        dataMap.forEach((k,v) -> {
+            finalDataMap.putAll(v);
+        });
+
+        Map<String, Map<String, ValidateError>> errorMap = form.validate(dataMap, finalDataMap);
+
+        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
+
+        assertEquals("FAIL", personalInfo.get("appointmentDateTime").getValidationStatus().toString());
+    }
+
+    @Test
+    void checkValidation_maxTime() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/SampleJson/validation_sample.json").toURI()));
+        Form form = parseForm(jsonContent);
+
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/dataJson/validation_data_maxTime.json").toURI()));
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
+        });
+
+        Map<String,Object> finalDataMap = new HashMap<>();
+
+        dataMap.forEach((k,v) -> {
+            finalDataMap.putAll(v);
+        });
+
+        Map<String, Map<String, ValidateError>> errorMap = form.validate(dataMap, finalDataMap);
+
+        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
+
+        assertEquals("FAIL", personalInfo.get("appointmentDateTime").getValidationStatus().toString());
+    }
+
+    @Test
+    void checkValidation_minDate() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/SampleJson/validation_sample.json").toURI()));
+        Form form = parseForm(jsonContent);
+
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/dataJson/validation_data_minDate.json").toURI()));
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
+        });
+
+        Map<String,Object> finalDataMap = new HashMap<>();
+
+        dataMap.forEach((k,v) -> {
+            finalDataMap.putAll(v);
+        });
+
+        Map<String, Map<String, ValidateError>> errorMap = form.validate(dataMap, finalDataMap);
+
+        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
+
+        assertEquals("FAIL", personalInfo.get("appointmentDateTime").getValidationStatus().toString());
+    }
+
+    @Test
+    void checkValidation_minTime() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/SampleJson/validation_sample.json").toURI()));
+        Form form = parseForm(jsonContent);
+
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/dataJson/validation_data_minTime.json").toURI()));
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
+        });
+
+        Map<String,Object> finalDataMap = new HashMap<>();
+
+        dataMap.forEach((k,v) -> {
+            finalDataMap.putAll(v);
+        });
+
+        Map<String, Map<String, ValidateError>> errorMap = form.validate(dataMap, finalDataMap);
+
+        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
+
+        assertEquals("FAIL", personalInfo.get("appointmentDateTime").getValidationStatus().toString());
+    }
+
+
+    @Test
+    void checkValidation_all() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/SampleJson/validation_sample.json").toURI()));
+        Form form = parseForm(jsonContent);
+
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/dataJson/validation_data_all.json").toURI()));
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
+        });
+
+        Map<String,Object> finalDataMap = new HashMap<>();
+
+        dataMap.forEach((k,v) -> {
+            finalDataMap.putAll(v);
+        });
+
+        Map<String, Map<String, ValidateError>> errorMap = form.validate(dataMap, finalDataMap);
+
+        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
+
+        assertEquals("PASS", personalInfo.get("appointmentDateTime").getValidationStatus().toString());
+    }
+
+    @Test
+    void checkValidation_malicious() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/SampleJson/validation_sample.json").toURI()));
+        Form form = parseForm(jsonContent);
+
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/dataJson/validation_data_malicious.json").toURI()));
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
+        });
+
+        Map<String,Object> finalDataMap = new HashMap<>();
+
+        dataMap.forEach((k,v) -> {
+            finalDataMap.putAll(v);
+        });
+
+        Map<String, Map<String, ValidateError>> errorMap = form.validate(dataMap, finalDataMap);
+
+        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
+
+        assertEquals("FAIL", personalInfo.get("appointmentDateTime").getValidationStatus().toString());
+    }
+
+}

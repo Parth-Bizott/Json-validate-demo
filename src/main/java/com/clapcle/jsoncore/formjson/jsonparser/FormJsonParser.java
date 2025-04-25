@@ -128,7 +128,7 @@ public class FormJsonParser {
 //            System.out.println("Successfully parsed form: " + ((TextField)textField).getFormatter());
             System.out.println("Successfully parsed form: " + form.getFormDescription());
 
-            Map<String,Map<String,String>> dataMap = new HashMap<>();
+            Map<String,Map<String,Object>> dataMap = new HashMap<>();
             dataMap.put("personalInfo", new HashMap<>());
             dataMap.get("personalInfo").put("personName", "dd");
             dataMap.get("personalInfo").put("expectedSalary", "20");

@@ -26,6 +26,10 @@ public class RadioField extends Field {
     public ValidateError toValidate(Map<String, Object> data) {
         ValidateError validateError = new ValidateError();
         String requestValue = (String) data.get(getId());
+        ValidateError maliciousCheck = super.checkMaliciousInput(requestValue);
+        if (maliciousCheck != null) {
+            return maliciousCheck;
+        }
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getConditionalDisplay());
@@ -41,6 +45,7 @@ public class RadioField extends Field {
             if (!b && requestValue != null) {
                 validateError.setValidationStatus(ValidationStatus.FAIL);
                 validateError.setErrorMessage("The provided value '" + requestValue + " was not accepted due to failing the editability criteria.");
+                return validateError;
             }
         }
 

@@ -1,0 +1,106 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": [
+              "personalInfo"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": [
+              "personalInfo"
+            ],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "fromDate",
+          "name": "birthDate",
+          "label": "Date of Birth",
+          "type": "DATE",
+          "defaultValue": "",
+          "description": "Please enter your date of birth",
+          "hidden": false,
+          "dateFormat": "YYYY-MM-DD",
+          "min": "",
+          "max": "",
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "MM/DD/YYYY",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "helperText": "You must be at least 18 years old to register",
+          "cssClass": "birth-date-field",
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        },
+        {
+          "id": "appointmentDateTime",
+          "name": "appointmentDateTime",
+          "label": "Appointment Date & Time",
+          "type": "DATETIME",
+          "defaultValue": "",
+          "description": "Select your preferred appointment date and time",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "YYYY-MM-DD HH:mm",
+          "dateTimeFormat": "YYYY-MM-DD HH:mm",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "helperText": "Appointments available Monday-Friday, 9 AM to 5 PM",
+          "cssClass": "appointment-datetime-field",
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": "(fromDate !== null && fromDate !== '')"
+        }
+      ]
+    }
+  ]
+}

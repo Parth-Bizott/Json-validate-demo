@@ -6,6 +6,7 @@ import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidationStatus;
 import com.clapcle.jsoncore.formjson.util.FormValidationUtility;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.ObjectUtils;
@@ -15,7 +16,7 @@ import java.util.Map;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PasswordField extends Field {
     private boolean toggleVisibility;
     private boolean strengthMeter;
@@ -26,6 +27,13 @@ public class PasswordField extends Field {
 
         ValidateError validateError = new ValidateError();
         String requestValue = (String) data.get(getId());
+
+
+        ValidateError maliciousCheck = super.checkMaliciousInput(requestValue);
+        if (maliciousCheck != null) {
+            return maliciousCheck;
+        }
+
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getConditionalDisplay());
@@ -41,6 +49,7 @@ public class PasswordField extends Field {
             if (!b && requestValue != null) {
                 validateError.setValidationStatus(ValidationStatus.FAIL);
                 validateError.setErrorMessage("The provided value '" + requestValue + " was not accepted due to failing the editability criteria.");
+                return validateError;
             }
         }
 

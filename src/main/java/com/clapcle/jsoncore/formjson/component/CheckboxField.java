@@ -6,7 +6,7 @@ import com.clapcle.jsoncore.formjson.form.ValidationRule;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidationStatus;
 import com.clapcle.jsoncore.formjson.util.FormValidationUtility;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.ObjectUtils;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CheckboxField extends Field {
     private List<Option> options;
     private boolean allowSelectAll;
@@ -35,6 +35,23 @@ public class CheckboxField extends Field {
             selectedValues = (List<?>) requestValue;
         } else if (requestValue instanceof String stringValue) {
             selectedValues = List.of(stringValue);
+        }
+
+        if (selectedValues != null && !selectedValues.isEmpty()) {
+            boolean allValuesValid = selectedValues.stream().allMatch(value ->
+                    options.stream().anyMatch(option -> option.getValue().equals(value)));
+
+            if (!allValuesValid) {
+                validateError.setValidationStatus(ValidationStatus.FAIL);
+                validateError.setErrorMessage("Invalid selection. Some values are not allowed.");
+                return validateError;
+            }
+        }
+
+
+        ValidateError maliciousCheck = super.checkMaliciousInput(selectedValues);
+        if (maliciousCheck != null) {
+            return maliciousCheck;
         }
 
 
@@ -61,7 +78,19 @@ public class CheckboxField extends Field {
                 String value = (String) rule.getValue();
                 switch (type) {
                     case "required":
-                        if ("true".equalsIgnoreCase(value) && (selectedValues == null || selectedValues.isEmpty())) {
+                        if ("true".equalsIgnoreCase(value) && (selectedValues == null ||selectedValues.isEmpty())) {
+                            validateError.setValidationStatus(ValidationStatus.FAIL);
+                            validateError.setValidationRule(rule);
+                            return validateError;
+                        }
+                        break;
+                }
+                
+
+                switch (type) {
+                    case "minSelections":
+                        int min = Integer.parseInt(value);
+                        if (selectedValues == null || selectedValues.size() < min) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;
@@ -70,9 +99,9 @@ public class CheckboxField extends Field {
                 }
 
                 switch (type) {
-                    case "minSelections":
-                        int min = Integer.parseInt(value);
-                        if (selectedValues == null || selectedValues.size() < min) {
+                    case "maxSelections":
+                        int max = Integer.parseInt(value);
+                        if (selectedValues == null || selectedValues.size() > max) {
                             validateError.setValidationStatus(ValidationStatus.FAIL);
                             validateError.setValidationRule(rule);
                             return validateError;

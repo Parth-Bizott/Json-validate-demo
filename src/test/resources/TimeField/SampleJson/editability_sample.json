@@ -1,0 +1,106 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": [
+              "personalInfo"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": [
+              "personalInfo"
+            ],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "expectedSalary",
+          "name": "expectedSalary",
+          "label": "Expected Salary (Monthly)",
+          "type": "CURRENCY",
+          "defaultValue": "",
+          "description": "Specify your monthly expected salary in your preferred currency",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "e.g., 50000",
+          "readOnlyDisplay": "text",
+          "readOnlyTemplate": "text",
+          "helperText": "Please provide your expected salary per month",
+          "cssClass": "half-width salary-field",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        },
+        {
+          "id": "appointmentTime",
+          "name": "appointmentTime",
+          "label": "Preferred Time",
+          "type": "TIME",
+          "defaultValue": "09:00",
+          "description": "Select your preferred appointment time",
+          "hidden": false,
+          "timeFormat": "HH:mm",
+          "min": "",
+          "max": "",
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "HH:mm",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "helperText": "Business hours are from 09:00 to 17:00",
+          "cssClass": "appointment-time-field",
+          "validations": [],
+          "visibility": "true",
+          "editability": "(expectedSalary > 50000)",
+          "conditionalDisplay": ""
+        }
+      ]
+    }
+  ]
+}

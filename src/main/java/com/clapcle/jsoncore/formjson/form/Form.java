@@ -37,11 +37,11 @@ public class Form {
 //        return fieldMap;
 //    }
 
-    public Map<String, Map<String, ValidateError>> validate(Map<String, Map<String, String>> dataMap, Map<String, Object> finalDataMap) {
+    public Map<String, Map<String, ValidateError>> validate(Map<String, Map<String, Object>> dataMap, Map<String, Object> finalDataMap) {
         Map<String, Map<String, ValidateError>> errorMap = new HashMap<>();
 
         getSections().forEach(section -> {
-            Map<String, String> map = dataMap.get(section.getId());
+            Map<String, Object> map = dataMap.get(section.getId());
 
             errorMap.put(section.getId(), new HashMap<>());
 

@@ -1,0 +1,102 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": ["personalInfo"]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": ["personalInfo"],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "userPassword",
+          "name": "userPassword",
+          "label": "Create Password",
+          "type": "PASSWORD",
+          "defaultValue": "",
+          "description": "Create a strong password for your account",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "Enter your password",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "helperText": "Password must contain at least 8 characters, including uppercase, lowercase, number and special character",
+          "cssClass": "password-field",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Password is required"
+            },
+            {
+              "type": "minLength",
+              "value": "8",
+              "message": "Password must be at least 8 characters long"
+            },
+            {
+              "type": "maxLength",
+              "value": "32",
+              "message": "Password must not exceed 32 characters"
+            },
+            {
+              "type": "pattern",
+              "value": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,32}$",
+              "message": "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        }
+      ]
+    }
+  ]
+}

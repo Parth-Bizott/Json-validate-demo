@@ -1,0 +1,137 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": [
+              "personalInfo"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": [
+              "personalInfo"
+            ],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "fromDate",
+          "name": "birthDate",
+          "label": "Date of Birth",
+          "type": "DATE",
+          "defaultValue": "",
+          "description": "Please enter your date of birth",
+          "hidden": false,
+          "dateFormat": "YYYY-MM-DD",
+          "min": "",
+          "max": "",
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "MM/DD/YYYY",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "helperText": "You must be at least 18 years old to register",
+          "cssClass": "birth-date-field",
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        },
+        {
+          "id": "educationLevel",
+          "name": "educationLevel",
+          "label": "Education Level",
+          "type": "RADIO",
+          "description": "Select your highest level of education completed",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "layout": {
+            "columnCount": 2,
+            "labelPosition": "top",
+            "alignment": "vertical"
+          },
+          "helperText": "Choose the option that best represents your educational qualification",
+          "cssClass": "education-radio-group",
+          "options": [
+            {
+              "value": "highSchool",
+              "label": "High School Diploma",
+              "description": "Secondary education or equivalent",
+              "icon": "school"
+            },
+            {
+              "value": "associates",
+              "label": "Associate's Degree",
+              "description": "2-year college degree",
+              "icon": "school"
+            },
+            {
+              "value": "bachelors",
+              "label": "Bachelor's Degree",
+              "description": "4-year university degree",
+              "icon": "school"
+            },
+            {
+              "value": "masters",
+              "label": "Master's Degree",
+              "description": "Graduate degree",
+              "icon": "school"
+            },
+            {
+              "value": "doctorate",
+              "label": "Doctorate/Ph.D.",
+              "description": "Doctoral degree",
+              "icon": "school"
+            }
+          ],
+          "defaultValue": "bachelors",
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": "(fromDate !== null && fromDate !== '')"
+        }
+      ]
+    }
+  ]
+}

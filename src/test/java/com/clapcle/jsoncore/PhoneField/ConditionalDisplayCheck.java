@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -17,14 +18,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ConditionalDisplayCheck {
     @Test
-    void checkConditionalDisplay_metWithCondition() throws IOException {
+    void checkConditionalDisplay_metWithCondition() throws IOException, URISyntaxException {
 
-        String jsonContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/SampleJson/conditionalDisplay_sample.json"));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/SampleJson/conditionalDisplay_sample.json").toURI()));
         Form form = parseForm(jsonContent);
 
-        String dataContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/dataJson/conditionalDisplay_data.json"));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/dataJson/conditionalDisplay_data.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Map<String, String>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, String>>>() {
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
 
         Map<String,Object> finalDataMap = new HashMap<>();
@@ -45,14 +46,14 @@ public class ConditionalDisplayCheck {
     }
 
     @Test
-    void checkConditionalDisplay_metWithConditionSuccess() throws IOException {
+    void checkConditionalDisplay_metWithConditionSuccess() throws IOException, URISyntaxException {
 
-        String jsonContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/SampleJson/conditionalDisplay_sample.json"));
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/SampleJson/conditionalDisplay_sample.json").toURI()));
         Form form = parseForm(jsonContent);
 
-        String dataContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/dataJson/conditionalDisplay_data_success.json"));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/dataJson/conditionalDisplay_data_success.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Map<String, String>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, String>>>() {
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
 
         Map<String,Object> finalDataMap = new HashMap<>();

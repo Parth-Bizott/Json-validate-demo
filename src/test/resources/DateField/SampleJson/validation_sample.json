@@ -1,0 +1,100 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": ["personalInfo"]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": ["personalInfo"],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "toDate",
+          "name": "birthDate",
+          "label": "Date of Birth",
+          "type": "DATE",
+          "defaultValue": "",
+          "description": "Please enter your date of birth",
+          "hidden": false,
+          "dateFormat": "YYYY-MM-DD",
+          "min": "",
+          "max": "",
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "placeholder": "MM/DD/YYYY",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "helperText": "You must be at least 18 years old to register",
+          "cssClass": "birth-date-field",
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Date of birth is required"
+            },
+            {
+              "type": "minDate",
+              "value": "1900-01-01",
+              "message": "Please enter a valid date of birth"
+            },
+            {
+              "type": "maxDate",
+              "value": "2024-01-01",
+              "message": "Date cannot be in the future"
+            },
+            {
+              "type": "customValidator",
+              "value": "",
+              "message": ""
+            }
+          ],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        }
+      ]
+    }
+  ]
+}

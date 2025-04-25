@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -18,13 +19,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ValidationCheck {
 
     @Test
-    void checkValidation_required() throws IOException {
-        String jsonContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/SampleJson/validation_sample.json"));
+    void checkValidation_required() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/SampleJson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
 
-        String dataContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/dataJson/validation_data_required.json"));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/dataJson/validation_data_required.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Map<String, String>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, String>>>() {
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
 
         Map<String,Object> finalDataMap = new HashMap<>();
@@ -41,13 +42,13 @@ class ValidationCheck {
     }
 
     @Test
-    void checkValidation_maxLength() throws IOException {
-        String jsonContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/SampleJson/validation_sample.json"));
+    void checkValidation_maxLength() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/SampleJson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
 
-        String dataContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/dataJson/validation_data_maxLength.json"));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/dataJson/validation_data_maxLength.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Map<String, String>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, String>>>() {
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
 
         Map<String,Object> finalDataMap = new HashMap<>();
@@ -64,13 +65,13 @@ class ValidationCheck {
     }
 
     @Test
-    void checkValidation_minLength() throws IOException {
-        String jsonContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/SampleJson/validation_sample.json"));
+    void checkValidation_minLength() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/SampleJson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
 
-        String dataContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/dataJson/validation_data_minLength.json"));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/dataJson/validation_data_minLength.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Map<String, String>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, String>>>() {
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
 
         Map<String,Object> finalDataMap = new HashMap<>();
@@ -87,13 +88,13 @@ class ValidationCheck {
     }
 
     @Test
-    void checkValidation_pattern() throws IOException {
-        String jsonContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/SampleJson/validation_sample.json"));
+    void checkValidation_pattern() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/SampleJson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
 
-        String dataContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/dataJson/validation_data_pattern.json"));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/dataJson/validation_data_pattern.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Map<String, String>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, String>>>() {
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
 
         Map<String,Object> finalDataMap = new HashMap<>();
@@ -110,13 +111,13 @@ class ValidationCheck {
     }
 
     @Test
-    void checkValidation_all() throws IOException {
-        String jsonContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/SampleJson/validation_sample.json"));
+    void checkValidation_all() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/SampleJson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
 
-        String dataContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/dataJson/validation_data_all.json"));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/dataJson/validation_data_all.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Map<String, String>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, String>>>() {
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
 
         Map<String,Object> finalDataMap = new HashMap<>();
@@ -133,13 +134,13 @@ class ValidationCheck {
     }
 
     @Test
-    void checkValidation_malicious() throws IOException {
-        String jsonContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/SampleJson/validation_sample.json"));
+    void checkValidation_malicious() throws IOException, URISyntaxException {
+        String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/SampleJson/validation_sample.json").toURI()));
         Form form = parseForm(jsonContent);
 
-        String dataContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/PhoneField/dataJson/validation_data_malicious.json"));
+        String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/dataJson/validation_data_malicious.json").toURI()));
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Map<String, String>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, String>>>() {
+        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
         });
 
         Map<String,Object> finalDataMap = new HashMap<>();

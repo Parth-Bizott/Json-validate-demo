@@ -6,6 +6,7 @@ import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidationStatus;
 import com.clapcle.jsoncore.formjson.util.FormValidationUtility;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.ObjectUtils;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DateField extends Field {
     private String format;
 
@@ -25,6 +26,11 @@ public class DateField extends Field {
     public ValidateError toValidate(Map<String, Object> data) {
         ValidateError validateError = new ValidateError();
         String requestValue = (String) data.get(getId());
+
+        ValidateError maliciousCheck = super.checkMaliciousInput(requestValue);
+        if (maliciousCheck != null) {
+            return maliciousCheck;
+        }
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
             boolean conditionPassed = FormValidationUtility.validateFormula(data, getConditionalDisplay());

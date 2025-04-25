@@ -1,0 +1,149 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": [
+              "personalInfo"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": [
+              "personalInfo"
+            ],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "personSurName",
+          "name": "personSurName",
+          "label": "Sur Name",
+          "type": "TEXT",
+          "defaultValue": "",
+          "description": "Enter your surname as shown on government ID",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "e.g., John Doe",
+          "formatter": "(XXX) XXX-XXXX",
+          "readOnlyDisplay": "text",
+          "helperText": "Your name will appear on all official documents",
+          "cssClass": "full-width",
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        },
+        {
+          "id": "sameAsMailingAddress",
+          "name": "sameAsMailingAddress",
+          "label": "Same as Mailing Address",
+          "type": "CHECKBOX",
+          "defaultValue": false,
+          "description": "Check this box if your residential address is the same as your mailing address",
+          "hidden": false,
+          "disabled": false,
+          "readOnlyDisplay": "text",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "right"
+          },
+          "helperText": "Selecting this will automatically copy your mailing address details",
+          "cssClass": "address-checkbox",
+          "validations": [],
+          "options": [
+            {
+              "value": "programming",
+              "label": "Programming",
+              "description": "Software development and coding",
+              "icon": "code"
+            },
+            {
+              "value": "database",
+              "label": "Database Management",
+              "description": "Database design and administration",
+              "icon": "database"
+            },
+            {
+              "value": "web_development",
+              "label": "Web Development",
+              "description": "Frontend and backend web technologies",
+              "icon": "web"
+            },
+            {
+              "value": "api_design",
+              "label": "API Design",
+              "description": "RESTful and GraphQL API development",
+              "icon": "api"
+            },
+            {
+              "value": "cloud_computing",
+              "label": "Cloud Computing",
+              "description": "AWS, Azure, or Google Cloud platforms",
+              "icon": "cloud"
+            },
+            {
+              "value": "devops",
+              "label": "DevOps",
+              "description": "CI/CD and infrastructure automation",
+              "icon": "devops"
+            },
+            {
+              "value": "security",
+              "label": "Security",
+              "description": "Application and network security",
+              "icon": "security"
+            },
+            {
+              "value": "agile",
+              "label": "Agile Methodologies",
+              "description": "Scrum and Kanban practices",
+              "icon": "agile"
+            }
+          ],
+          "visibility": "true",
+          "editability": "(personSurName == 'Modi')",
+          "conditionalDisplay": ""
+        }
+
+      ]
+    }
+  ]
+}
