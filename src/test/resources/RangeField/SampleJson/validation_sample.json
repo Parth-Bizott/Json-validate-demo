@@ -1,0 +1,95 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": ["personalInfo"]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": ["personalInfo"],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "salaryRange",
+          "name": "salaryRange",
+          "label": "Expected Salary Range",
+          "type": "RANGE",
+          "defaultValue": "75000",
+          "description": "Select your expected annual salary range in USD",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Slide to select salary range",
+          "startRange": "40000",
+          "endRange": "200000",
+          "step": "5000",
+          "readOnlyDisplay": "text",
+          "helperText": "Drag the slider to set your expected salary range",
+          "cssClass": "salary-range-slider",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [
+            {
+              "type": "required",
+              "value": "true",
+              "message": "Please select your expected salary range"
+            },
+            {
+              "type": "minRange",
+              "value": "1",
+              "message": "Please add greater than min range"
+            },
+            {
+              "type": "maxRange",
+              "value": "10000",
+              "message": "Please add smaller than max range"
+            }
+          ],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-package com.clapcle.jsoncore.TimeField;
+package com.clapcle.jsoncore.DateTimeField;
 
 import com.clapcle.jsoncore.formjson.form.Form;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -15,14 +16,14 @@ import java.util.Map;
 import static com.clapcle.jsoncore.formjson.jsonparser.FormJsonParser.parseForm;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EditibilityCheck {
+class EditabilityCheck {
    @Test
-   void checkEditability_metWithCondition() throws IOException {
+   void checkEditability_metWithCondition() throws IOException, URISyntaxException {
 
-       String jsonContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/TimeField/SampleJson/editability_sample.json"));
+       String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/SampleJson/editability_sample.json").toURI()));
        Form form = parseForm(jsonContent);
 
-       String dataContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/TimeField/dataJson/editability_data.json"));
+       String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/dataJson/editability_data.json").toURI()));
        ObjectMapper objectMapper = new ObjectMapper();
        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
        });
@@ -37,18 +38,18 @@ class EditibilityCheck {
 
        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
 
-       assertEquals("FAIL", personalInfo.get("appointmentTime").getValidationStatus().toString());
+       assertEquals("FAIL", personalInfo.get("appointmentDateTime").getValidationStatus().toString());
 
-       assertEquals("PASS", personalInfo.get("expectedSalary").getValidationStatus().toString());
+       assertEquals("PASS", personalInfo.get("fromDate").getValidationStatus().toString());
    }
 
    @Test
-   void checkEditability_metWithConditionSuccess() throws IOException {
+   void checkEditability_metWithConditionSuccess() throws IOException, URISyntaxException {
 
-       String jsonContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/TimeField/SampleJson/editability_sample.json"));
+       String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/SampleJson/editability_sample.json").toURI()));
        Form form = parseForm(jsonContent);
 
-       String dataContent = Files.readString(Paths.get("/home/bizott-2/ERP/json-core-zip/json-core/src/test/resources/TimeField/dataJson/edibility_data_success.json"));
+       String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("DateTimeField/dataJson/edibility_data_success.json").toURI()));
        ObjectMapper objectMapper = new ObjectMapper();
        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
        });
@@ -63,9 +64,9 @@ class EditibilityCheck {
 
        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
 
-       assertEquals("PASS", personalInfo.get("expectedSalary").getValidationStatus().toString());
+       assertEquals("PASS", personalInfo.get("fromDate").getValidationStatus().toString());
 
-       assertEquals("PASS", personalInfo.get("appointmentTime").getValidationStatus().toString());
+       assertEquals("PASS", personalInfo.get("appointmentDateTime").getValidationStatus().toString());
 
    }
 }

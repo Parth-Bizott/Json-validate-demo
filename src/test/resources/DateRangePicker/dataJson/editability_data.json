@@ -1,0 +1,9 @@
+{
+  "personalInfo": {
+    "fromDate" : "",
+    "vacationPeriod": {
+      "startDate" : "2021-02-12",
+      "endDate" : "2022-02-12"
+    }
+  }
+}

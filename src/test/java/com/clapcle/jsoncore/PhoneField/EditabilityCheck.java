@@ -1,4 +1,4 @@
-package com.clapcle.jsoncore.RadioField;
+package com.clapcle.jsoncore.PhoneField;
 
 import com.clapcle.jsoncore.formjson.form.Form;
 import com.clapcle.jsoncore.formjson.jsonparser.ValidateError;
@@ -16,14 +16,15 @@ import java.util.Map;
 import static com.clapcle.jsoncore.formjson.jsonparser.FormJsonParser.parseForm;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EditibilityCheck {
+class EditabilityCheck {
+
    @Test
    void checkEditability_metWithCondition() throws IOException, URISyntaxException {
 
-       String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("RadioField/SampleJson/editability_sample.json").toURI()));
+       String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/SampleJson/editability_sample.json").toURI()));
        Form form = parseForm(jsonContent);
 
-       String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("RadioField/dataJson/editability_data.json").toURI()));
+       String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/dataJson/editability_data.json").toURI()));
        ObjectMapper objectMapper = new ObjectMapper();
        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
        });
@@ -38,18 +39,20 @@ class EditibilityCheck {
 
        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
 
-       assertEquals("FAIL", personalInfo.get("educationLevel").getValidationStatus().toString());
+       assertEquals("FAIL", personalInfo.get("phoneNumber").getValidationStatus().toString());
 
-       assertEquals("PASS", personalInfo.get("fromDate").getValidationStatus().toString());
+       assertEquals("PASS", personalInfo.get("personSurName").getValidationStatus().toString());
+
+       assertEquals("PASS", personalInfo.get("expectedSalary").getValidationStatus().toString());
    }
 
    @Test
    void checkEditability_metWithConditionSuccess() throws IOException, URISyntaxException {
 
-       String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("RadioField/SampleJson/editability_sample.json").toURI()));
+       String jsonContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/SampleJson/editability_sample.json").toURI()));
        Form form = parseForm(jsonContent);
 
-       String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("RadioField/dataJson/edibility_data_success.json").toURI()));
+       String dataContent = Files.readString(Paths.get(ClassLoader.getSystemResource("PhoneField/dataJson/edibility_data_success.json").toURI()));
        ObjectMapper objectMapper = new ObjectMapper();
        Map<String, Map<String, Object>> dataMap = objectMapper.readValue(dataContent, new TypeReference<Map<String, Map<String, Object>>>() {
        });
@@ -64,9 +67,10 @@ class EditibilityCheck {
 
        Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
 
-       assertEquals("PASS", personalInfo.get("fromDate").getValidationStatus().toString());
+       assertEquals("PASS", personalInfo.get("phoneNumber").getValidationStatus().toString());
 
-       assertEquals("PASS", personalInfo.get("educationLevel").getValidationStatus().toString());
+       assertEquals("PASS", personalInfo.get("personSurName").getValidationStatus().toString());
 
+       assertEquals("PASS", personalInfo.get("expectedSalary").getValidationStatus().toString());
    }
 }

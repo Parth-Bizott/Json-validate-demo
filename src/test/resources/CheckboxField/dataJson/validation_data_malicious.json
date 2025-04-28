@@ -1,5 +1,5 @@
 {
   "personalInfo": {
-    "sameAsMailingAddress": "yes<script>"
+    "sameAsMailingAddress": ["yes<script>"]
   }
 }

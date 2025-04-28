@@ -86,7 +86,7 @@ class ValidationCheck {
 
         Map<String, ValidateError> personalInfo = errorMap.get("personalInfo");
 
-        assertEquals("PASS", personalInfo.get("personSurName").getValidationStatus().toString());
+        assertEquals("PASS", personalInfo.get("sameAsMailingAddress").getValidationStatus().toString());
     }
 
     @Test

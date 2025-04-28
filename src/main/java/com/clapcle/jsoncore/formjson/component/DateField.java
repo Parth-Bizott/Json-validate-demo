@@ -46,6 +46,7 @@ public class DateField extends Field {
             if (!editable && requestValue != null) {
                 validateError.setValidationStatus(ValidationStatus.FAIL);
                 validateError.setErrorMessage("The provided value '" + requestValue + " was not accepted due to failing the editability criteria.");
+                return validateError;
             }
         }
 

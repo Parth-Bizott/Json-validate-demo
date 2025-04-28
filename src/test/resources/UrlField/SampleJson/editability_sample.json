@@ -1,0 +1,109 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": [
+              "personalInfo"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": [
+              "personalInfo"
+            ],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "personFirstName",
+          "name": "personFirstName",
+          "label": "Full Name",
+          "type": "TEXT",
+          "defaultValue": "",
+          "description": "Enter your First legal name as shown on government ID",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "e.g., John Doe",
+          "formatter": "(XXX) XXX-XXXX",
+          "readOnlyDisplay": "text",
+          "helperText": "Your name will appear on all official documents",
+          "cssClass": "full-width",
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        },
+        {
+          "id": "websiteUrl",
+          "name": "websiteUrl",
+          "label": "Website URL",
+          "type": "URL",
+          "defaultValue": "",
+          "description": "Enter your website or portfolio URL",
+          "hidden": "false",
+          "placeholder": "https://example.com",
+          "helperText": "Enter a valid URL including https:// or http://",
+          "dependsOn": "",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [
+            {
+              "type": "required",
+              "value": "false",
+              "message": "Website URL is required"
+            },
+
+            {
+              "type": "pattern",
+              "value": "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*\\/?$",
+              "message": "Invalid URL format"
+            }
+          ],
+          "visibility": "true",
+          "editability": "(personFirstName == 'Parth')",
+          "conditionalDisplay": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "personalInfo": {
     "personSurName": "Modi",
-    "sameAsMailingAddress" : "yes"
+    "sameAsMailingAddress": ["programming","database","web_development"]
   }
 }

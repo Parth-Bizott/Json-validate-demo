@@ -1,0 +1,125 @@
+{
+  "formTitle": "Job Application Form",
+  "formDescription": "Please complete all sections of this application form accurately.",
+  "submitButtonText": "Submit Application",
+  "layout": {
+    "columnCount": 1,
+    "cssClass": "job-application-form",
+    "layoutOptions": [
+      {
+        "type": "stepper",
+        "steps": [
+          {
+            "id": "basicInfo",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "order": 1,
+            "sectionId": [
+              "personalInfo"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "steps": [
+          {
+            "id": "step1",
+            "title": "Basic Information",
+            "description": "Provide your personal details",
+            "sectionId": [
+              "personalInfo"
+            ],
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "personalInfo",
+      "title": "Personal Information",
+      "description": "Please provide your personal details",
+      "order": 1,
+      "layout": {
+        "columnCount": 2,
+        "cssClass": "personal-info-section",
+        "collapsible": true,
+        "defaultCollapsed": false
+      },
+      "visibility": "true",
+      "editability": "",
+      "conditionalDisplay": "",
+      "fields": [
+        {
+          "id": "personSurName",
+          "name": "personSurName",
+          "label": "Sur Name",
+          "type": "TEXT",
+          "defaultValue": "",
+          "description": "Enter your surname as shown on government ID",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "e.g., John Doe",
+          "formatter": "(XXX) XXX-XXXX",
+          "readOnlyDisplay": "text",
+          "helperText": "Your name will appear on all official documents",
+          "cssClass": "full-width",
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        },
+        {
+          "id": "salaryRange",
+          "name": "salaryRange",
+          "label": "Expected Salary Range",
+          "type": "RANGE",
+          "defaultValue": "75000",
+          "description": "Select your expected annual salary range in USD",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "Slide to select salary range",
+          "startRange": "40000",
+          "endRange": "200000",
+          "step": "5000",
+          "readOnlyDisplay": "text",
+          "helperText": "Drag the slider to set your expected salary range",
+          "cssClass": "salary-range-slider",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [],
+          "visibility": "true",
+          "editability": "((expectedSalary > 50000 && expectedSalary < 100000) || (personSurName !== null && personSurName != ''))",
+          "conditionalDisplay": ""
+        },
+        {
+          "id": "expectedSalary",
+          "name": "expectedSalary",
+          "label": "Expected Salary (Monthly)",
+          "type": "CURRENCY",
+          "defaultValue": "",
+          "description": "Specify your monthly expected salary in your preferred currency",
+          "hidden": false,
+          "disabled": false,
+          "placeholder": "e.g., 50000",
+          "readOnlyDisplay": "text",
+          "readOnlyTemplate": "text",
+          "helperText": "Please provide your expected salary per month",
+          "cssClass": "half-width salary-field",
+          "layout": {
+            "columnCount": 1,
+            "labelPosition": "top"
+          },
+          "validations": [],
+          "visibility": "true",
+          "editability": "",
+          "conditionalDisplay": ""
+        }
+      ]
+    }
+  ]
+}
