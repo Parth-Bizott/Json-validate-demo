@@ -24,8 +24,6 @@ public class DateTimeField extends Field {
     private String dateTimeFormat;
     private String minDateTime;
     private String maxDateTime;
-    private boolean showCalendarIcon;
-    private boolean use12HourFormat;
 
     @Override
     public ValidateError toValidate(Map<String, Object> data) {

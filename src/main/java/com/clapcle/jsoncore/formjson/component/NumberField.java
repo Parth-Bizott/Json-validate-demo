@@ -16,12 +16,10 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NumberField extends Field {
-    private double min;
-    private double max;
+    private String min;
+    private String max;
     private double step;
-    private boolean showSpinners;
     private String format;
-    private int decimalPlaces;
 
     @Override
     public ValidateError toValidate(Map<String, Object> data) {
@@ -32,6 +30,14 @@ public class NumberField extends Field {
         ValidateError maliciousCheck = super.checkMaliciousInput(requestValue);
         if (maliciousCheck != null) {
             return maliciousCheck;
+        }
+
+        if(getMax()!=null && getMin()!=null){
+            if(Integer.parseInt(requestValue) < Integer.parseInt(getMin()) || Integer.parseInt(requestValue) > Integer.parseInt(getMax())){
+                validateError.setValidationStatus(ValidationStatus.FAIL);
+                validateError.setErrorMessage("The provided value '" + requestValue + " was not accepted due to failing the range criteria.");
+                return validateError;
+            }
         }
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {

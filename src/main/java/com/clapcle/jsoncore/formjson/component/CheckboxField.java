@@ -20,10 +20,8 @@ import java.util.Map;
 public class CheckboxField extends Field {
     private List<Option> options;
     private boolean allowSelectAll;
-    //    private int minSelectCount;
-    private int maxSelectCount;
-    private boolean allowOther;
-    private String otherPlaceholder;
+     /*   private int minSelectCount;
+    private int maxSelectCount;*/
 
 
     @Override
@@ -48,12 +46,10 @@ public class CheckboxField extends Field {
             }
         }
 
-
         ValidateError maliciousCheck = super.checkMaliciousInput(selectedValues);
         if (maliciousCheck != null) {
             return maliciousCheck;
         }
-
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getConditionalDisplay());

@@ -75,7 +75,6 @@ public class DateRangePicker extends Field {
             }
         }
 
-
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
             boolean b = FormValidationUtility.validateFormula(data, getConditionalDisplay());
             if (!b && requestValue != null) {
@@ -134,11 +133,7 @@ public class DateRangePicker extends Field {
                             }
                         }
                         break;
-
-
                 }
-
-
             }
         }
 

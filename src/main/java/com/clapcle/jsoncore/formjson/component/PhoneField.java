@@ -19,8 +19,7 @@ import java.util.Map;
 public class PhoneField extends Field {
     private String format;
     private String defaultCountryCode;
-    private boolean showCountryCode;
-    private boolean showExtension;
+
 
     @Override
     public ValidateError toValidate(Map<String, Object> data) {

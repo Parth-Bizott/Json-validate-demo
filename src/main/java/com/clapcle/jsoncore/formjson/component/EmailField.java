@@ -17,8 +17,8 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EmailField extends Field {
+
     private boolean allowMultiple;
-    private String domainValidation;
 
     @Override
     public ValidateError toValidate(Map<String, Object> data) {

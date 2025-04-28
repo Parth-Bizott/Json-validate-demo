@@ -16,6 +16,10 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RangeField extends Field {
+
+    private String startRange;
+    private String endRange;
+
     @Override
     public ValidateError toValidate(Map<String, Object> data) throws Exception {
         ValidateError validateError = new ValidateError();
@@ -24,6 +28,14 @@ public class RangeField extends Field {
         ValidateError maliciousCheck = super.checkMaliciousInput(requestValue);
         if (maliciousCheck != null) {
             return maliciousCheck;
+        }
+
+        if(getStartRange() != null && getEndRange() != null){
+            if(Integer.parseInt(requestValue) < Integer.parseInt(getStartRange()) || Integer.parseInt(requestValue) > Integer.parseInt(getEndRange())){
+                validateError.setValidationStatus(ValidationStatus.FAIL);
+                validateError.setErrorMessage("The provided value '" + requestValue + "' is not within the range of " + getStartRange() + " to " + getEndRange());
+                return validateError;
+            }
         }
 
         if (getConditionalDisplay() != null && !getConditionalDisplay().isEmpty()) {
